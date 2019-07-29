@@ -20,18 +20,17 @@ package walkingkooka.store;
 import walkingkooka.Cast;
 import walkingkooka.HasId;
 import walkingkooka.ToStringBuilder;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Optional;
 
 final class TestUser implements HasId<Optional<TestUserId>>, HashCodeEqualsDefined {
 
-    public static TestUser with(final Optional<TestUserId> id, final EmailAddress email) {
+    public static TestUser with(final Optional<TestUserId> id, final String email) {
         return new TestUser(id, email);
     }
 
-    private TestUser(final Optional<TestUserId> id, final EmailAddress email) {
+    private TestUser(final Optional<TestUserId> id, final String email) {
         super();
         this.id = id;
         this.email = email;
@@ -43,7 +42,7 @@ final class TestUser implements HasId<Optional<TestUserId>>, HashCodeEqualsDefin
     }
 
     final Optional<TestUserId> id;
-    final EmailAddress email;
+    final String email;
 
     @Override
     public int hashCode() {
