@@ -19,7 +19,6 @@ package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.test.TypeNameTesting;
 
 import java.util.Arrays;
