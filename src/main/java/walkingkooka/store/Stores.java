@@ -18,7 +18,7 @@
 package walkingkooka.store;
 
 import walkingkooka.HasId;
-import walkingkooka.type.PublicStaticHelper;
+import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Comparator;
 import java.util.Optional;

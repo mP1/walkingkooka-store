@@ -18,9 +18,8 @@
 package walkingkooka.store;
 
 import walkingkooka.Cast;
-import walkingkooka.test.HashCodeEqualsDefined;
 
-final class TestUserId implements Comparable<TestUserId>, HashCodeEqualsDefined {
+final class TestUserId implements Comparable<TestUserId> {
 
     static TestUserId with(final int value) {
         return new TestUserId(value);
