@@ -20,11 +20,10 @@ package walkingkooka.store;
 import walkingkooka.Cast;
 import walkingkooka.HasId;
 import walkingkooka.ToStringBuilder;
-import walkingkooka.test.HashCodeEqualsDefined;
 
 import java.util.Optional;
 
-final class TestUser implements HasId<Optional<TestUserId>>, HashCodeEqualsDefined {
+final class TestUser implements HasId<Optional<TestUserId>> {
 
     public static TestUser with(final Optional<TestUserId> id, final String email) {
         return new TestUser(id, email);

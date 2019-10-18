@@ -19,7 +19,7 @@ package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Arrays;
 import java.util.Comparator;

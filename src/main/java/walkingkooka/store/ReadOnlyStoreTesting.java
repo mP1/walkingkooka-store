@@ -18,7 +18,7 @@
 package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.test.TypeNameTesting;
+import walkingkooka.reflect.TypeNameTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
