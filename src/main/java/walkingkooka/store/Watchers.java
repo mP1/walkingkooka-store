@@ -65,7 +65,7 @@ public final class Watchers<T> implements Consumer<T> {
         this.watchers.forEach(w -> w.accept(source));
     }
 
-    private final List<Consumer<T>> watchers = Lists.array();
+    private final List<Consumer<T>> watchers = Lists.copyOnWrite();
 
     @Override
     public String toString() {
