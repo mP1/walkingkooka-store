@@ -125,9 +125,7 @@ public interface Store<K, V> {
         if (from < 0) {
             throw new IllegalArgumentException("From " + from + " < 0");
         }
-        if (count < 0) {
-            throw new IllegalArgumentException("Count " + count + " < 0");
-        }
+        checkCount(count);
     }
 
     /**
@@ -135,8 +133,15 @@ public interface Store<K, V> {
      */
     static <K> void checkFromAndToIds(final K from, final int count) {
         Objects.requireNonNull(from, "from");
+        checkCount(count);
+    }
+
+    /**
+     * Checks the count is greater than or equal to zero.
+     */
+    static void checkCount(final int count) {
         if (count < 0) {
-            throw new IllegalArgumentException("Count " + count + " < 0");
+            throw new IllegalArgumentException("Invalid count " + count + " < 0");
         }
     }
 }
