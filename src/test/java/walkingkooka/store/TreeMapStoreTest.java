@@ -89,7 +89,7 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         final String email = "saved@example.com";
 
         final TestUser saved = store.save(TestUser.with(Optional.empty(), email));
-        assertEquals(TestUser.with(Optional.of(TestUserId.with(1)), email), saved, "id");
+        this.checkEquals(TestUser.with(Optional.of(TestUserId.with(1)), email), saved, "id");
 
         this.loadAndCheck(store, saved.id().get(), saved);
         this.countAndCheck(store, 1);
@@ -103,7 +103,7 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         final String email = "saved@example.com";
 
         final TestUser saved = store.save(TestUser.with(Optional.empty(), email));
-        assertEquals(TestUser.with(Optional.of(TestUserId.with(334)), email), saved, "id");
+        this.checkEquals(TestUser.with(Optional.of(TestUserId.with(334)), email), saved, "id");
 
         this.loadAndCheck(store, saved.id().get(), saved);
         this.countAndCheck(store, 4);
@@ -117,12 +117,12 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         final String email = "saved1@example.com";
 
         final TestUser saved1 = store.save(TestUser.with(Optional.empty(), email));
-        assertEquals(TestUser.with(Optional.of(TestUserId.with(334)), email), saved1, "id");
+        this.checkEquals(TestUser.with(Optional.of(TestUserId.with(334)), email), saved1, "id");
 
         final String email2 = "saved2@example.com";
 
         final TestUser saved2 = store.save(TestUser.with(Optional.empty(), email2));
-        assertEquals(TestUser.with(Optional.of(TestUserId.with(335)), email2), saved2, "id");
+        this.checkEquals(TestUser.with(Optional.of(TestUserId.with(335)), email2), saved2, "id");
 
         this.loadAndCheck(store, saved2.id().get(), saved2);
 

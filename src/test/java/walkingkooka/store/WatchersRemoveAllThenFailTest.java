@@ -119,7 +119,7 @@ public final class WatchersRemoveAllThenFailTest implements ClassTesting2<Watche
     }
 
     private void check(final int expected) {
-        assertEquals(expected, counter, "watchers removed");
+        this.checkEquals(expected, counter, "watchers removed");
     }
 
     private int counter;
