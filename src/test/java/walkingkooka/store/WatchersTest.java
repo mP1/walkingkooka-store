@@ -52,7 +52,7 @@ public final class WatchersTest implements ClassTesting2<Watchers>,
 
         watchers.accept(SOURCE1A);
 
-        assertEquals(Lists.of(SOURCE1A), fired);
+        this.checkEquals(Lists.of(SOURCE1A), fired);
     }
 
     @Test
@@ -66,8 +66,8 @@ public final class WatchersTest implements ClassTesting2<Watchers>,
 
         watchers.accept(SOURCE1A);
 
-        assertEquals(Lists.of(SOURCE1A), fired1);
-        assertEquals(Lists.of(SOURCE1A), fired2);
+        this.checkEquals(Lists.of(SOURCE1A), fired1);
+        this.checkEquals(Lists.of(SOURCE1A), fired2);
     }
 
     @Test
@@ -82,8 +82,8 @@ public final class WatchersTest implements ClassTesting2<Watchers>,
         watchers.accept(SOURCE1A);
         watchers.accept(SOURCE2B);
 
-        assertEquals(Lists.of(SOURCE1A, SOURCE2B), fired1);
-        assertEquals(Lists.of(SOURCE1A, SOURCE2B), fired2);
+        this.checkEquals(Lists.of(SOURCE1A, SOURCE2B), fired1);
+        this.checkEquals(Lists.of(SOURCE1A, SOURCE2B), fired2);
     }
 
     @Test
@@ -99,7 +99,7 @@ public final class WatchersTest implements ClassTesting2<Watchers>,
         watchers.addWatcher(watcher);
         watchers.accept(SOURCE2B);
 
-        assertEquals(Lists.of(SOURCE1A, SOURCE2B, SOURCE2B), fired);
+        this.checkEquals(Lists.of(SOURCE1A, SOURCE2B, SOURCE2B), fired);
     }
 
     @Test
@@ -111,7 +111,7 @@ public final class WatchersTest implements ClassTesting2<Watchers>,
 
         watchers.accept(SOURCE1A);
 
-        assertEquals(Lists.empty(), fired1);
+        this.checkEquals(Lists.empty(), fired1);
     }
 
     @Test
@@ -131,7 +131,7 @@ public final class WatchersTest implements ClassTesting2<Watchers>,
 
         watchers.accept(SOURCE3C);
 
-        assertEquals(Lists.of(SOURCE1A, SOURCE2B, SOURCE2B, SOURCE3C), fired);
+        this.checkEquals(Lists.of(SOURCE1A, SOURCE2B, SOURCE2B, SOURCE3C), fired);
     }
 
     @Test
@@ -145,7 +145,7 @@ public final class WatchersTest implements ClassTesting2<Watchers>,
         watchers.accept(SOURCE1A);
         watchers.accept(SOURCE1A);
 
-        assertEquals(Lists.empty(), fired1);
+        this.checkEquals(Lists.empty(), fired1);
     }
 
     @Test
@@ -168,8 +168,8 @@ public final class WatchersTest implements ClassTesting2<Watchers>,
 
         watchers.accept(SOURCE3C);
 
-        assertEquals(Lists.of(SOURCE1A), fired1);
-        assertEquals(Lists.of(SOURCE1A, SOURCE2B), fired2);
+        this.checkEquals(Lists.of(SOURCE1A), fired1);
+        this.checkEquals(Lists.of(SOURCE1A, SOURCE2B), fired2);
     }
 
     private Consumer<String> watcher(final List<String> fired) {

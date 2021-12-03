@@ -66,7 +66,7 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
 
         final V saved = store.save(value);
 
-        assertEquals(Lists.of(saved), fired, "fired values");
+        this.checkEquals(Lists.of(saved), fired, "fired values");
     }
 
     @Test
@@ -81,7 +81,7 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
         final V saved = store.save(value);
         store.save(value);
 
-        assertEquals(Lists.of(saved), fired, "fired values");
+        this.checkEquals(Lists.of(saved), fired, "fired values");
     }
 
     @Test
@@ -124,7 +124,7 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
         final K id = this.id();
         store.delete(id);
 
-        assertEquals(Lists.of(id), fired, "fired values");
+        this.checkEquals(Lists.of(id), fired, "fired values");
     }
 
     @Test
@@ -167,19 +167,19 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
 
     @Test
     default void testFirstIdWhenEmpty() {
-        assertEquals(Optional.empty(),
+        this.checkEquals(Optional.empty(),
                 this.createStore().firstId());
     }
 
     @Test
     default void testFirstValueWhenEmpty() {
-        assertEquals(Optional.empty(),
+        this.checkEquals(Optional.empty(),
                 this.createStore().firstValue());
     }
 
     @Test
     default void testAllWhenEmpty() {
-        assertEquals(Lists.empty(),
+        this.checkEquals(Lists.empty(),
                 this.createStore().all());
     }
 
@@ -190,7 +190,7 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
     V value();
 
     default void loadAndCheck(final S store, final K id, final V value) {
-        assertEquals(Optional.of(value),
+        this.checkEquals(Optional.of(value),
                 store.load(id),
                 () -> " store load " + id);
     }
@@ -201,11 +201,11 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
 
     default void loadFailCheck(final S store, final K id) {
         final Optional<V> value = store.load(id);
-        assertEquals(Optional.empty(), value, () -> "Expected id " + id + " to fail");
+        this.checkEquals(Optional.empty(), value, () -> "Expected id " + id + " to fail");
     }
 
     default void countAndCheck(final Store<?, ?> store, final int count) {
-        assertEquals(count, store.count(), () -> "Wrong count " + store);
+        this.checkEquals(count, store.count(), () -> "Wrong count " + store);
     }
 
     default void idsAndCheck(final S store,
@@ -219,7 +219,7 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
                              final int from,
                              final int to,
                              final Set<K> ids) {
-        assertEquals(ids,
+        this.checkEquals(ids,
                 store.ids(from, to),
                 "ids from " + from + " count=" + to);
     }
@@ -235,7 +235,7 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
                                 final K from,
                                 final int count,
                                 final List<V> values) {
-        assertEquals(values,
+        this.checkEquals(values,
                 store.values(from, count),
                 "values from " + from + " count=" + count);
     }
