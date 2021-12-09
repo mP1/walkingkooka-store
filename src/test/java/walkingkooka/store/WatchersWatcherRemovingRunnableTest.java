@@ -18,14 +18,15 @@
 package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.util.function.Consumer;
 
-public final class WatchersWatcherRemovingRunnableTest implements ClassTesting2<WatchersWatcherRemovingRunnable>,
-        ToStringTesting<WatchersWatcherRemovingRunnable> {
+public final class WatchersWatcherRemovingRunnableTest implements ClassTesting2<WatchersWatcherRemovingRunnable<?>>,
+        ToStringTesting<WatchersWatcherRemovingRunnable<?>> {
 
     @Test
     public void testToStringRemoved() {
@@ -57,8 +58,8 @@ public final class WatchersWatcherRemovingRunnableTest implements ClassTesting2<
     }
 
     @Override
-    public Class<WatchersWatcherRemovingRunnable> type() {
-        return WatchersWatcherRemovingRunnable.class;
+    public Class<WatchersWatcherRemovingRunnable<?>> type() {
+        return Cast.to(WatchersWatcherRemovingRunnable.class);
     }
 
     @Override
