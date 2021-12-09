@@ -44,7 +44,7 @@ public final class WatchersWatcherRemovingRunnableTest implements ClassTesting2<
     }
 
     private Consumer<String> watcher() {
-        return new Consumer<String>() {
+        return new Consumer<>() {
             @Override
             public void accept(String s) {
                 throw new UnsupportedOperationException();
