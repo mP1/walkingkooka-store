@@ -195,7 +195,7 @@ public final class WatchersTest implements ClassTesting2<Watchers<?>>,
     }
 
     private Consumer<String> watcher(final String toString) {
-        return new Consumer<String>() {
+        return new Consumer<>() {
             @Override
             public void accept(String s) {
                 throw new UnsupportedOperationException();
