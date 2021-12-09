@@ -28,7 +28,6 @@ import java.util.TreeMap;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUserId, TestUser>, TestUserId, TestUser>,
