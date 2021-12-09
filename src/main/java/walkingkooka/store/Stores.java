@@ -32,8 +32,8 @@ public final class Stores implements PublicStaticHelper {
     /**
      * {@see FakeStore}
      */
-    public static Store fake() {
-        return new FakeStore();
+    public static <K extends Comparable<K>, V extends HasId<Optional<K>>> Store<K, V> fake() {
+        return new FakeStore<>();
     }
 
     /**
