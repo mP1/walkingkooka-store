@@ -153,7 +153,7 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
     }
 
     @Test
-    public final void testIds() {
+    public void testIds() {
         final TreeMapStore<TestUserId, TestUser> store = this.createStore();
 
         final TestUser a = this.user1();
@@ -168,7 +168,7 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
     }
 
     @Test
-    public final void testIdsWindow() {
+    public void testIdsWindow() {
         final TreeMapStore<TestUserId, TestUser> store = this.createStore();
 
         final TestUser a = this.user1();
@@ -185,7 +185,7 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
     }
 
     @Test
-    public final void testValues() {
+    public void testValues() {
         final TreeMapStore<TestUserId, TestUser> store = this.createStore();
 
         final TestUser a = this.user1();
@@ -200,7 +200,7 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
     }
 
     @Test
-    public final void testValuesWindow() {
+    public void testValuesWindow() {
         final TreeMapStore<TestUserId, TestUser> store = this.createStore();
 
         final TestUser a = this.user1();
@@ -251,7 +251,7 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         return TreeMapStore.with(Comparator.naturalOrder(), this::idSetter);
     }
 
-    final TestUser idSetter(final TestUserId id, final TestUser user) {
+    TestUser idSetter(final TestUserId id, final TestUser user) {
         return TestUser.with(Optional.of(TestUserId.with(null == id ? 1 : id.value + 1)), user.email);
     }
 
