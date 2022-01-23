@@ -41,9 +41,13 @@ public interface Store<K, V> {
     default V loadOrFail(final K id) {
         final Optional<V> value = this.load(id);
         if (false == value.isPresent()) {
-            throw new LoadStoreException("Value with id " + id + " is absent");
+            throw this.notFound(id);
         }
         return value.get();
+    }
+
+    default LoadStoreException notFound(final Object id) {
+        return new LoadStoreException("Unable to find id: " + id);
     }
 
     /**
