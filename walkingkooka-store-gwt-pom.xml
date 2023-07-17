@@ -87,7 +87,7 @@
     <dependencies>
         <dependency>
             <groupId>walkingkooka</groupId>
-            <artifactId>walkingkooka-gwt</artifactId>
+            <artifactId>walkingkooka-watch-gwt</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
