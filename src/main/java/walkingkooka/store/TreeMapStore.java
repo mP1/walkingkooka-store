@@ -21,6 +21,7 @@ import walkingkooka.HasId;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.watch.Watchers;
 
 import java.util.Comparator;
 import java.util.List;
