@@ -103,7 +103,7 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
 
     @Override
     public Runnable addSaveWatcher(final Consumer<V> saved) {
-        return this.saveWatchers.addWatcher(saved);
+        return this.saveWatchers.add(saved);
     }
 
     private final Watchers<V> saveWatchers = Watchers.create();
@@ -119,7 +119,7 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
 
     @Override
     public Runnable addDeleteWatcher(final Consumer<K> deleted) {
-        return this.deleteWatchers.addWatcher(deleted);
+        return this.deleteWatchers.add(deleted);
     }
 
     private final Watchers<K> deleteWatchers = Watchers.create();
