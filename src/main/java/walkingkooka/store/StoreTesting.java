@@ -182,6 +182,28 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
                 this.createStore().all());
     }
 
+    @Test
+    default void testBetweenNullFromFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createStore().between(
+                        null,
+                        this.id()
+                )
+        );
+    }
+
+    @Test
+    default void testBetweenNullToFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createStore().between(
+                        this.id(),
+                        null
+                )
+        );
+    }
+
     S createStore();
 
     K id();
@@ -237,6 +259,28 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
         this.checkEquals(values,
                 store.values(from, count),
                 "values from " + from + " count=" + count);
+    }
+
+    default void betweenAndCheck(final S store,
+                                 final K from,
+                                 final K to,
+                                 final V... values) {
+        this.betweenAndCheck(
+                store,
+                from,
+                to,
+                Lists.of(values)
+        );
+    }
+
+    default void betweenAndCheck(final S store,
+                                 final K from,
+                                 final K to,
+                                 final List<V> values) {
+        this.checkEquals(
+                values,
+                store.between(from, to),
+                "values from " + from + " to " + to);
     }
 
     @Override

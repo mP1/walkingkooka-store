@@ -67,4 +67,9 @@ public class FakeStore<K, V> implements Store<K, V>, Fake {
         Store.checkFromAndToIds(from, count);
         throw new UnsupportedOperationException();
     }
+
+    public List<V> between(final K from, final K to) {
+        Store.checkBetween(from, to);
+        throw new UnsupportedOperationException();
+    }
 }

@@ -148,4 +148,17 @@ public interface Store<K, V> {
             throw new IllegalArgumentException("Invalid count " + count + " < 0");
         }
     }
+
+    /**
+     * Returns all the values between the from and to which are both inclusive.
+     */
+    List<V> between(final K from, final K to);
+
+    /**
+     * Useful parameter checking
+     */
+    static <K> void checkBetween(final K from, final K to) {
+        Objects.requireNonNull(from, "from");
+        Objects.requireNonNull(to, "to");
+    }
 }
