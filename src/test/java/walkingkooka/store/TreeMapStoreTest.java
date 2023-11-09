@@ -216,6 +216,100 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         this.valuesAndCheck(store, b.id().get(), 2, b, c);
     }
 
+    // between..........................................................................................................
+
+    @Test
+    public void testBetween() {
+        final TreeMapStore<TestUserId, TestUser> store = this.createStore();
+
+        final TestUser a = this.user1();
+        final TestUser b = this.user2();
+        final TestUser c = this.user3();
+        final TestUser d = this.user4();
+
+        store.save(a);
+        store.save(b);
+        store.save(c);
+        store.save(d);
+
+        this.betweenAndCheck(
+                store,
+                b.id().get(),
+                c.id().get(),
+                b,
+                c
+        );
+    }
+
+    @Test
+    public void testBetweenOne() {
+        final TreeMapStore<TestUserId, TestUser> store = this.createStore();
+
+        final TestUser a = this.user1();
+        final TestUser b = this.user2();
+        final TestUser c = this.user3();
+        final TestUser d = this.user4();
+
+        store.save(a);
+        store.save(b);
+        store.save(c);
+        store.save(d);
+
+        this.betweenAndCheck(
+                store,
+                b.id().get(),
+                b.id().get(),
+                b
+        );
+    }
+
+    @Test
+    public void testBetweenAll() {
+        final TreeMapStore<TestUserId, TestUser> store = this.createStore();
+
+        final TestUser a = this.user1();
+        final TestUser b = this.user2();
+        final TestUser c = this.user3();
+        final TestUser d = this.user4();
+
+        store.save(a);
+        store.save(b);
+        store.save(c);
+        store.save(d);
+
+        this.betweenAndCheck(
+                store,
+                a.id().get(),
+                d.id().get(),
+                a,
+                b,
+                c,
+                d
+        );
+    }
+
+    @Test
+    public void testBetweenNone() {
+        final TreeMapStore<TestUserId, TestUser> store = this.createStore();
+
+        final TestUser a = this.user1();
+        final TestUser b = this.user2();
+        final TestUser c = this.user3();
+        final TestUser d = this.user4();
+
+        store.save(a);
+        store.save(b);
+        store.save(c);
+
+        this.betweenAndCheck(
+                store,
+                d.id().get(),
+                d.id().get()
+        );
+    }
+
+    // toString........................................................................................................
+
     @Test
     public void testToString() {
         final TreeMapStore<TestUserId, TestUser> store = createNotEmptyStore();

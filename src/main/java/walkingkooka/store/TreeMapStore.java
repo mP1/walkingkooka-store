@@ -21,10 +21,12 @@ import walkingkooka.HasId;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.compare.CompareResult;
 import walkingkooka.watch.Watchers;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -152,6 +154,25 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
                 .map(e -> e.getValue())
                 .limit(count)
                 .collect(Collectors.toCollection(Lists::array));
+    }
+
+    @Override
+    public List<V> between(final K from, final K to) {
+        Store.checkBetween(from, to);
+
+        final SortedMap<K, V> subMap = this.idToValue.tailMap(from);
+
+        final List<V> values = Lists.array();
+        for (final Entry<K, V> keyAndValue : subMap.entrySet()) {
+            if (keyAndValue.getKey().compareTo(to) > 0) {
+                break;
+            }
+            values.add(
+                    keyAndValue.getValue()
+            );
+        }
+
+        return values;
     }
 
     /**
