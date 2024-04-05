@@ -44,8 +44,8 @@ public interface Store<K, V> {
         return value.get();
     }
 
-    default LoadStoreException notFound(final Object id) {
-        return new LoadStoreException("Unable to find id: " + id);
+    default MissingStoreException notFound(final Object id) {
+        return new MissingStoreException("Unable to find id: " + id);
     }
 
     /**

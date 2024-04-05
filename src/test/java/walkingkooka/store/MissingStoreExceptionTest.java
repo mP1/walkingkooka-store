@@ -20,21 +20,21 @@ package walkingkooka.store;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.StandardThrowableTesting;
 
-public final class LoadStoreExceptionTest implements StandardThrowableTesting<LoadStoreException> {
+public final class MissingStoreExceptionTest implements StandardThrowableTesting<MissingStoreException> {
 
     @Override
-    public LoadStoreException createThrowable(final String message) {
-        return new LoadStoreException(message);
+    public MissingStoreException createThrowable(final String message) {
+        return new MissingStoreException(message);
     }
 
     @Override
-    public LoadStoreException createThrowable(final String message, final Throwable cause) {
-        return new LoadStoreException(message, cause);
+    public MissingStoreException createThrowable(final String message, final Throwable cause) {
+        return new MissingStoreException(message, cause);
     }
 
     @Override
-    public Class<LoadStoreException> type() {
-        return LoadStoreException.class;
+    public Class<MissingStoreException> type() {
+        return MissingStoreException.class;
     }
 
     @Override
