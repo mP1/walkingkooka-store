@@ -91,9 +91,10 @@ public interface Store<K, V> {
     }
 
     /**
-     * Returns a view of all values between the range of ids.
+     * Returns a view of all values between the given range.
      */
-    List<V> values(final K from, final int count);
+    List<V> values(final int offset,
+                   final int count);
 
     /**
      * Fetches the first value if one is present.
@@ -107,26 +108,20 @@ public interface Store<K, V> {
      * Returns all values in this store.
      */
     default List<V> all() {
-        return this.firstId()
-                .map((i) -> this.values(i, Integer.MAX_VALUE))
-                .orElse(Lists.empty());
+        return this.values(
+                0,
+                Integer.MAX_VALUE
+        );
     }
 
     /**
      * Useful parameter checking for both {@link #ids}
      */
-    static void checkFromAndTo(final int from, final int count) {
-        if (from < 0) {
-            throw new IllegalArgumentException("From " + from + " < 0");
+    static <K> void checkFromAndCount(final int from,
+                                      final int count) {
+        if(from < 0) {
+            throw new IllegalArgumentException("Invalid from < 0 got " + from);
         }
-        checkCount(count);
-    }
-
-    /**
-     * Useful parameter checking for both {@link #ids}
-     */
-    static <K> void checkFromAndToIds(final K from, final int count) {
-        Objects.requireNonNull(from, "from");
         checkCount(count);
     }
 
