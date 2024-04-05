@@ -141,27 +141,37 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
     }
 
     @Test
-    default void testIdsFrom0AndCountZero() {
+    default void testIdsOffset0AndCountZero() {
         this.idsAndCheck(this.createStore(), 0, 0);
     }
 
     @Test
-    default void testValuesNullFromIdFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStore().values(null, 0);
-        });
+    default void testValuesNegativeOffsetFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> this.createStore().
+                        values(
+                                -1,
+                                0
+                        )
+        );
     }
 
     @Test
     default void testValuesInvalidCountFails() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            this.createStore().values(this.id(), -1);
-        });
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> this.createStore().values(0, -1)
+        );
     }
 
     @Test
-    default void testValueFromAndZeroCount() {
-        this.valuesAndCheck(this.createStore(), this.id(), 0);
+    default void testValueZeroCount() {
+        this.valuesAndCheck(
+                this.createStore(),
+                0, // from
+                0 // count
+        );
     }
 
     @Test
@@ -246,19 +256,26 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
     }
 
     default void valuesAndCheck(final S store,
-                                final K from,
+                                final int from,
                                 final int count,
                                 final V... values) {
-        this.valuesAndCheck(store, from, count, Lists.of(values));
+        this.valuesAndCheck(
+                store,
+                from,
+                count,
+                Lists.of(values)
+        );
     }
 
     default void valuesAndCheck(final S store,
-                                final K from,
+                                final int from,
                                 final int count,
                                 final List<V> values) {
-        this.checkEquals(values,
+        this.checkEquals(
+                values,
                 store.values(from, count),
-                "values from " + from + " count=" + count);
+                "values from " + from + " count=" + count
+        );
     }
 
     default void betweenAndCheck(final S store,

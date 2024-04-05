@@ -196,7 +196,14 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(b);
         store.save(c);
 
-        this.valuesAndCheck(store, a.id().get(), 3, a, b, c);
+        this.valuesAndCheck(
+                store,
+                0, // from
+                3, // count
+                a,
+                b,
+                c
+        );
     }
 
     @Test
@@ -213,7 +220,32 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(c);
         store.save(d);
 
-        this.valuesAndCheck(store, b.id().get(), 2, b, c);
+        this.valuesAndCheck(
+                store,
+                1, // from
+                2, // count
+                b,
+                c
+        );
+    }
+
+    @Test
+    public void testValuesFromEnd() {
+        final TreeMapStore<TestUserId, TestUser> store = this.createStore();
+
+        final TestUser a = this.user1();
+        final TestUser b = this.user2();
+        final TestUser c = this.user3();
+
+        store.save(a);
+        store.save(b);
+        store.save(c);
+
+        this.valuesAndCheck(
+                store,
+                4, // from
+                1 // count
+        );
     }
 
     // between..........................................................................................................

@@ -21,7 +21,6 @@ import walkingkooka.HasId;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.compare.CompareResult;
 import walkingkooka.watch.Watchers;
 
 import java.util.Comparator;
@@ -132,27 +131,27 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
     }
 
     @Override
-    public Set<K> ids(final int from,
+    public Set<K> ids(final int offset,
                       final int count) {
-        Store.checkFromAndTo(from, count);
+        Store.checkFromAndCount(offset, count);
 
         return this.idToValue.keySet()
                 .stream()
-                .skip(from)
+                .skip(offset)
                 .limit(count)
                 .collect(Collectors.toCollection(Sets::ordered));
     }
 
     @Override
-    public List<V> values(final K from,
+    public List<V> values(final int offset,
                           final int count) {
-        Store.checkFromAndToIds(from, count);
+        Store.checkFromAndCount(offset, count);
 
         return this.idToValue.entrySet()
                 .stream()
-                .filter(e -> e.getKey().compareTo(from) >= 0)
-                .map(e -> e.getValue())
+                .skip(offset)
                 .limit(count)
+                .map(Entry::getValue)
                 .collect(Collectors.toCollection(Lists::array));
     }
 
