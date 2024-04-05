@@ -99,18 +99,8 @@ public interface Store<K, V> {
      * Fetches the first value if one is present.
      */
     default Optional<V> firstValue() {
-        V value = null;
-
-        final Optional<K> id = this.firstId();
-        if (id.isPresent()) {
-
-            final List<V> values = this.values(id.get(), 1);
-            if (values.size() > 0) {
-                value = values.iterator().next();
-            }
-        }
-
-        return Optional.ofNullable(value);
+        return this.firstId()
+                .flatMap(this::load);
     }
 
     /**
