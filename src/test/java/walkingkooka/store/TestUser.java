@@ -55,12 +55,12 @@ final class TestUser implements HasId<Optional<TestUserId>> {
     private boolean equals0(final TestUser other) {
         return this.id.equals(other.id) && this.email.equals(other.email);
     }
-    
+
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .value(this.id)
-                .value(this.email)
-                .build();
+            .value(this.id)
+            .value(this.email)
+            .build();
     }
 }

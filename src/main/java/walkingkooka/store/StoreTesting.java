@@ -31,7 +31,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2<S>,
-        ToStringTesting<S> {
+    ToStringTesting<S> {
 
     @Test
     default void testLoadNullIdFails() {
@@ -148,69 +148,69 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
     @Test
     default void testValuesNegativeOffsetFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.createStore().
-                        values(
-                                -1,
-                                0
-                        )
+            IllegalArgumentException.class,
+            () -> this.createStore().
+                values(
+                    -1,
+                    0
+                )
         );
     }
 
     @Test
     default void testValuesInvalidCountFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.createStore().values(0, -1)
+            IllegalArgumentException.class,
+            () -> this.createStore().values(0, -1)
         );
     }
 
     @Test
     default void testValueZeroCount() {
         this.valuesAndCheck(
-                this.createStore(),
-                0, // from
-                0 // count
+            this.createStore(),
+            0, // from
+            0 // count
         );
     }
 
     @Test
     default void testFirstIdWhenEmpty() {
         this.checkEquals(Optional.empty(),
-                this.createStore().firstId());
+            this.createStore().firstId());
     }
 
     @Test
     default void testFirstValueWhenEmpty() {
         this.checkEquals(Optional.empty(),
-                this.createStore().firstValue());
+            this.createStore().firstValue());
     }
 
     @Test
     default void testAllWhenEmpty() {
         this.checkEquals(Lists.empty(),
-                this.createStore().all());
+            this.createStore().all());
     }
 
     @Test
     default void testBetweenNullFromFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createStore().between(
-                        null,
-                        this.id()
-                )
+            NullPointerException.class,
+            () -> this.createStore().between(
+                null,
+                this.id()
+            )
         );
     }
 
     @Test
     default void testBetweenNullToFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createStore().between(
-                        this.id(),
-                        null
-                )
+            NullPointerException.class,
+            () -> this.createStore().between(
+                this.id(),
+                null
+            )
         );
     }
 
@@ -222,8 +222,8 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
 
     default void loadAndCheck(final S store, final K id, final V value) {
         this.checkEquals(Optional.of(value),
-                store.load(id),
-                () -> " store load " + id);
+            store.load(id),
+            () -> " store load " + id);
     }
 
     default void loadFailCheck(final K id) {
@@ -251,8 +251,8 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
                              final int to,
                              final Set<K> ids) {
         this.checkEquals(ids,
-                store.ids(from, to),
-                "ids from " + from + " count=" + to);
+            store.ids(from, to),
+            "ids from " + from + " count=" + to);
     }
 
     default void valuesAndCheck(final S store,
@@ -260,10 +260,10 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
                                 final int count,
                                 final V... values) {
         this.valuesAndCheck(
-                store,
-                from,
-                count,
-                Lists.of(values)
+            store,
+            from,
+            count,
+            Lists.of(values)
         );
     }
 
@@ -272,9 +272,9 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
                                 final int count,
                                 final List<V> values) {
         this.checkEquals(
-                values,
-                store.values(from, count),
-                "values from " + from + " count=" + count
+            values,
+            store.values(from, count),
+            "values from " + from + " count=" + count
         );
     }
 
@@ -283,10 +283,10 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
                                  final K to,
                                  final V... values) {
         this.betweenAndCheck(
-                store,
-                from,
-                to,
-                Lists.of(values)
+            store,
+            from,
+            to,
+            Lists.of(values)
         );
     }
 
@@ -295,9 +295,9 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
                                  final K to,
                                  final List<V> values) {
         this.checkEquals(
-                values,
-                store.between(from, to),
-                "values from " + from + " to " + to);
+            values,
+            store.between(from, to),
+            "values from " + from + " to " + to);
     }
 
     @Override

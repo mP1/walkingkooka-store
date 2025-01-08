@@ -30,7 +30,6 @@ import java.util.TreeMap;
 import java.util.function.BiFunction;
 
 
-
 @J2clTestInput(JunitTest.class)
 public final class JunitTest {
 

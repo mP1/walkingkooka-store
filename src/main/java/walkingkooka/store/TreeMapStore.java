@@ -74,8 +74,8 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
 
         final K id = value.id().orElse(null);
         return null != id ?
-                this.update(id, value) :
-                this.saveNew(value);
+            this.update(id, value) :
+            this.saveNew(value);
     }
 
     private V update(final K id, final V value) {
@@ -89,8 +89,8 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
     private V saveNew(final V value) {
         final SortedMap<K, V> idToValue = this.idToValue;
         final K max = idToValue.isEmpty() ?
-                null :
-                idToValue.lastKey();
+            null :
+            idToValue.lastKey();
         final V valueWithId = this.idSetter.apply(max, value);
         idToValue.put(valueWithId.id().get(), valueWithId);
         this.saveWatchers.accept(valueWithId);
@@ -136,10 +136,10 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
         Store.checkFromAndCount(offset, count);
 
         return this.idToValue.keySet()
-                .stream()
-                .skip(offset)
-                .limit(count)
-                .collect(Collectors.toCollection(Sets::ordered));
+            .stream()
+            .skip(offset)
+            .limit(count)
+            .collect(Collectors.toCollection(Sets::ordered));
     }
 
     @Override
@@ -148,11 +148,11 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
         Store.checkFromAndCount(offset, count);
 
         return this.idToValue.entrySet()
-                .stream()
-                .skip(offset)
-                .limit(count)
-                .map(Entry::getValue)
-                .collect(Collectors.toCollection(Lists::array));
+            .stream()
+            .skip(offset)
+            .limit(count)
+            .map(Entry::getValue)
+            .collect(Collectors.toCollection(Lists::array));
     }
 
     @Override
@@ -167,7 +167,7 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
                 break;
             }
             values.add(
-                    keyAndValue.getValue()
+                keyAndValue.getValue()
             );
         }
 

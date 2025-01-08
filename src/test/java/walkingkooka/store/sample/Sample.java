@@ -80,9 +80,9 @@ public final class Sample {
         @Override
         public String toString() {
             return ToStringBuilder.empty()
-                    .value(this.id)
-                    .value(this.email)
-                    .build();
+                .value(this.id)
+                .value(this.email)
+                .build();
         }
     }
 }

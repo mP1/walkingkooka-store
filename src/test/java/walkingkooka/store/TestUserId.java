@@ -44,7 +44,7 @@ final class TestUserId implements Comparable<TestUserId> {
     private boolean equals0(final TestUserId other) {
         return this.value == other.value;
     }
-    
+
     @Override
     public String toString() {
         return String.valueOf(this.value);
