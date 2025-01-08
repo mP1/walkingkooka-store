@@ -99,7 +99,7 @@ public interface Store<K, V> {
      */
     default Optional<V> firstValue() {
         return this.firstId()
-                .flatMap(this::load);
+            .flatMap(this::load);
     }
 
     /**
@@ -107,8 +107,8 @@ public interface Store<K, V> {
      */
     default List<V> all() {
         return this.values(
-                0,
-                Integer.MAX_VALUE
+            0,
+            Integer.MAX_VALUE
         );
     }
 
@@ -117,7 +117,7 @@ public interface Store<K, V> {
      */
     static <K> void checkFromAndCount(final int from,
                                       final int count) {
-        if(from < 0) {
+        if (from < 0) {
             throw new IllegalArgumentException("Invalid from < 0 got " + from);
         }
         checkCount(count);

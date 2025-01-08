@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUserId, TestUser>, TestUserId, TestUser>,
-        TypeNameTesting<TreeMapStore<TestUserId, TestUser>> {
+    TypeNameTesting<TreeMapStore<TestUserId, TestUser>> {
 
     @Test
     public void testWithNullIdComparatorFails() {
@@ -197,12 +197,12 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(c);
 
         this.valuesAndCheck(
-                store,
-                0, // from
-                3, // count
-                a,
-                b,
-                c
+            store,
+            0, // from
+            3, // count
+            a,
+            b,
+            c
         );
     }
 
@@ -221,11 +221,11 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(d);
 
         this.valuesAndCheck(
-                store,
-                1, // from
-                2, // count
-                b,
-                c
+            store,
+            1, // from
+            2, // count
+            b,
+            c
         );
     }
 
@@ -242,9 +242,9 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(c);
 
         this.valuesAndCheck(
-                store,
-                4, // from
-                1 // count
+            store,
+            4, // from
+            1 // count
         );
     }
 
@@ -265,11 +265,11 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(d);
 
         this.betweenAndCheck(
-                store,
-                b.id().get(),
-                c.id().get(),
-                b,
-                c
+            store,
+            b.id().get(),
+            c.id().get(),
+            b,
+            c
         );
     }
 
@@ -288,10 +288,10 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(d);
 
         this.betweenAndCheck(
-                store,
-                b.id().get(),
-                b.id().get(),
-                b
+            store,
+            b.id().get(),
+            b.id().get(),
+            b
         );
     }
 
@@ -310,13 +310,13 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(d);
 
         this.betweenAndCheck(
-                store,
-                a.id().get(),
-                d.id().get(),
-                a,
-                b,
-                c,
-                d
+            store,
+            a.id().get(),
+            d.id().get(),
+            a,
+            b,
+            c,
+            d
         );
     }
 
@@ -334,9 +334,9 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(c);
 
         this.betweenAndCheck(
-                store,
-                d.id().get(),
-                d.id().get()
+            store,
+            d.id().get(),
+            d.id().get()
         );
     }
 
@@ -385,10 +385,10 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         final TreeMapStore<TestUserId, TestUser> store = this.createStore();
 
         Arrays.asList(user1(), user2(), user3())
-                .stream()
-                .forEach(u -> {
-                    store.idToValue.put(u.id().get(), u);
-                });
+            .stream()
+            .forEach(u -> {
+                store.idToValue.put(u.id().get(), u);
+            });
 
         return store;
     }
@@ -408,9 +408,9 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
                               final int to,
                               final Optional<TestUserId>... ids) {
         this.idsAndCheck(store,
-                from,
-                to,
-                Arrays.asList(ids).stream().map(i -> i.get()).collect(Collectors.toSet()));
+            from,
+            to,
+            Arrays.asList(ids).stream().map(i -> i.get()).collect(Collectors.toSet()));
     }
 
     // ClassTesting.....................................................................................................
