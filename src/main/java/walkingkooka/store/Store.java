@@ -45,7 +45,18 @@ public interface Store<K, V> {
     }
 
     default MissingStoreException notFound(final Object id) {
-        return new MissingStoreException("Unable to find id: " + id);
+        Objects.requireNonNull(id, "id");
+
+        String message;
+
+        if (id instanceof HasNotFoundText) {
+            final HasNotFoundText hasNotFoundText = (HasNotFoundText) id;
+            message = hasNotFoundText.notFoundText();
+        } else {
+            message = "Unable to find id: " + id;
+        }
+
+        return new MissingStoreException(message);
     }
 
     /**
