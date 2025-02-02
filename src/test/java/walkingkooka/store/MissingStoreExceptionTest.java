@@ -18,12 +18,14 @@
 package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.StandardThrowableTesting;
 
 import java.util.Optional;
 
-public final class MissingStoreExceptionTest implements StandardThrowableTesting<MissingStoreException> {
+public final class MissingStoreExceptionTest implements StandardThrowableTesting<MissingStoreException>,
+    HasNotFoundTextTesting{
 
     @Test
     public void testNewHasNotFoundText() {
@@ -128,6 +130,32 @@ public final class MissingStoreExceptionTest implements StandardThrowableTesting
     @Override
     public MissingStoreException createThrowable(final String message, final Throwable cause) {
         return new MissingStoreException(message, cause);
+    }
+
+    // HasNotFoundText..................................................................................................
+
+    @Test
+    public void testHttpStatusWhenCustomMessage() {
+        final String message = "Hello 123";
+
+        this.checkEquals(
+            Optional.of(
+                HttpStatusCode.NOT_FOUND.setMessage(message)
+            ),
+            new MissingStoreException(message).status()
+        );
+    }
+
+    @Test
+    public void testHttpStatusWithHasNotFoundText() {
+        this.checkEquals(
+            Optional.of(
+                HttpStatusCode.NOT_FOUND.setMessage(NOT_FOUND_MESSAGE)
+            ),
+            new MissingStoreException(
+                new TestHasNotFoundText()
+            ).status()
+        );
     }
 
     // class............................................................................................................
