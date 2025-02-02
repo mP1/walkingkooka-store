@@ -122,12 +122,20 @@
                             <formatting>
                                 <param>PRETTY_PRINT</param>
                             </formatting>
-                            <java-compiler-arguments/>
+                            <java-compiler-arguments>
+                                <param>-Awalkingkooka.j2cl.java.util.Currency=XXX</param>
+                                <param>-Awalkingkooka.j2cl.java.util.Locale=EN-AU</param>
+                                <param>-Awalkingkooka.j2cl.java.util.Locale.DEFAULT=en-AU</param>
+                                <param>-Awalkingkooka.j2cl.java.util.TimeZone=Australia/*</param>
+                                <param>-Awalkingkooka.j2cl.java.util.TimeZone.DEFAULT=Australia/Sydney</param>
+                                <param>-Awalkingkooka.j2cl.locale.Logging=SLASH_SLASH_COMMENTS</param>
+                            </java-compiler-arguments>
                             <language-out>ECMASCRIPT_2016</language-out>
                             <thread-pool-size>0</thread-pool-size>
 
                             <classpath-required/>
                             <ignored-dependencies>
+                                <param>javax.servlet:javax.servlet-api:*</param>
                                 <param>org.junit.jupiter:junit-jupiter-engine:*</param>
                                 <param>org.junit.platform:junit-platform-commons:*</param>
                                 <param>org.junit.jupiter:junit-jupiter-api:*</param>
