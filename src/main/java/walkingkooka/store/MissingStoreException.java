@@ -17,22 +17,79 @@
 
 package walkingkooka.store;
 
+import walkingkooka.Value;
+
+import java.util.Objects;
+import java.util.Optional;
+
 /**
- * This exception is thrown with a load fails..
+ * This exception is thrown when a load fails, recording a message and possibly the ID itself.
  */
-public class MissingStoreException extends StoreException {
+public class MissingStoreException extends StoreException
+    implements Value<Optional<?>> {
 
     private static final long serialVersionUID = 1L;
 
     protected MissingStoreException() {
-        super();
+        this((String) "");
     }
 
     public MissingStoreException(final String message) {
-        super(message);
+        this(
+            message,
+            Optional.empty() // value
+        );
     }
 
-    public MissingStoreException(final String message, final Throwable cause) {
-        super(message, cause);
+    public MissingStoreException(final String message,
+                                 final Throwable cause) {
+        this(
+            message,
+            Optional.empty(), // value
+            cause
+        );
     }
+
+    public MissingStoreException(final HasNotFoundText id) {
+        this(
+            id.notFoundText(),
+            Optional.of(id) // value
+        );
+    }
+
+    public MissingStoreException(final HasNotFoundText id,
+                                 final Throwable cause) {
+        this(
+            id.notFoundText(),
+            Optional.of(id),
+            cause
+        );
+    }
+
+    public MissingStoreException(final String message,
+                                 final Optional<?> value) {
+        super(
+            message
+        );
+        this.value = Objects.requireNonNull(value, "value");
+    }
+
+    public MissingStoreException(final String message,
+                                 final Optional<?> value,
+                                 final Throwable cause) {
+        super(
+            message,
+            cause
+        );
+        this.value = Objects.requireNonNull(value, "value");
+    }
+
+    // Value............................................................................................................
+
+    @Override
+    public Optional<?> value() {
+        return this.value;
+    }
+
+    private final Optional<?> value;
 }
