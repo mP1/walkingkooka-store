@@ -158,6 +158,35 @@ public final class MissingStoreExceptionTest implements StandardThrowableTesting
         );
     }
 
+    // notFound.........................................................................................................
+
+    @Test
+    public void testNotFoundWithHasNotFoundText() {
+        final TestHasNotFoundText testHasNotFoundText = new TestHasNotFoundText();
+
+        this.notFoundAndCheck(
+            testHasNotFoundText,
+            testHasNotFoundText.notFoundText()
+        );
+    }
+
+    @Test
+    public void testNotFoundWithNotHasNotFoundText() {
+        this.notFoundAndCheck(
+            123L,
+            "Unable to find id: 123"
+        );
+    }
+
+    private void notFoundAndCheck(final Object id,
+                                  final String expected) {
+        this.checkEquals(
+            expected,
+            new FakeStore<>().notFound(id)
+                .getMessage()
+        );
+    }
+
     // class............................................................................................................
 
     @Override

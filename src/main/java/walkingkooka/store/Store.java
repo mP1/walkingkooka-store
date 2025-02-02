@@ -44,19 +44,17 @@ public interface Store<K, V> {
         return value.get();
     }
 
+    /**
+     * Creates a {@link MissingStoreException} using the id if possible as the value parameter.
+     */
     default MissingStoreException notFound(final Object id) {
         Objects.requireNonNull(id, "id");
 
-        String message;
-
-        if (id instanceof HasNotFoundText) {
-            final HasNotFoundText hasNotFoundText = (HasNotFoundText) id;
-            message = hasNotFoundText.notFoundText();
-        } else {
-            message = "Unable to find id: " + id;
-        }
-
-        return new MissingStoreException(message);
+        return id instanceof HasNotFoundText ?
+            new MissingStoreException(
+                (HasNotFoundText) id
+            ) :
+            new MissingStoreException("Unable to find id: " + id);
     }
 
     /**
