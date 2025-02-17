@@ -248,9 +248,9 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
 
     V value();
 
-    default void loadAndCheck(final S store,
-                              final K id,
-                              final V value) {
+    default <KK, VV> void loadAndCheck(final Store<KK, VV> store,
+                                       final KK id,
+                                       final VV value) {
         this.checkEquals(
             Optional.of(value),
             store.load(id),
@@ -262,9 +262,9 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
         this.loadFailCheck(this.createStore(), id);
     }
 
-    default void loadFailCheck(final S store,
-                               final K id) {
-        final Optional<V> value = store.load(id);
+    default <KK, VV> void loadFailCheck(final Store<KK, VV> store,
+                                        final KK id) {
+        final Optional<VV> value = store.load(id);
         this.checkEquals(
             Optional.empty(),
             value,
@@ -277,10 +277,10 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
         this.checkEquals(count, store.count(), () -> "Wrong count " + store);
     }
 
-    default void idsAndCheck(final S store,
-                             final int from,
-                             final int to,
-                             final K... ids) {
+    default <KK> void idsAndCheck(final Store<KK, ?> store,
+                                  final int from,
+                                  final int to,
+                                  final KK... ids) {
         this.idsAndCheck(
             store,
             from,
@@ -289,19 +289,19 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
         );
     }
 
-    default void idsAndCheck(final S store,
-                             final int from,
-                             final int to,
-                             final Set<K> ids) {
+    default <KK> void idsAndCheck(final Store<KK, ?> store,
+                                  final int from,
+                                  final int to,
+                                  final Set<KK> ids) {
         this.checkEquals(ids,
             store.ids(from, to),
             "ids from " + from + " count=" + to);
     }
 
-    default void valuesAndCheck(final S store,
-                                final int from,
-                                final int count,
-                                final V... values) {
+    default <VV> void valuesAndCheck(final Store<?, VV> store,
+                                     final int from,
+                                     final int count,
+                                     final VV... values) {
         this.valuesAndCheck(
             store,
             from,
@@ -310,10 +310,10 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
         );
     }
 
-    default void valuesAndCheck(final S store,
-                                final int from,
-                                final int count,
-                                final List<V> values) {
+    default <VV> void valuesAndCheck(final Store<?, VV> store,
+                                     final int from,
+                                     final int count,
+                                     final List<VV> values) {
         this.checkEquals(
             values,
             store.values(from, count),
@@ -321,10 +321,10 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
         );
     }
 
-    default void betweenAndCheck(final S store,
-                                 final K from,
-                                 final K to,
-                                 final V... values) {
+    default <KK, VV> void betweenAndCheck(final Store<KK, VV> store,
+                                          final KK from,
+                                          final KK to,
+                                          final VV... values) {
         this.betweenAndCheck(
             store,
             from,
@@ -333,10 +333,10 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
         );
     }
 
-    default void betweenAndCheck(final S store,
-                                 final K from,
-                                 final K to,
-                                 final List<V> values) {
+    default <KK, VV> void betweenAndCheck(final Store<KK, VV> store,
+                                          final KK from,
+                                          final KK to,
+                                          final List<VV> values) {
         this.checkEquals(
             values,
             store.between(from, to),
