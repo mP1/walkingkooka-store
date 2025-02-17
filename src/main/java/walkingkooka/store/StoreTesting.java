@@ -306,9 +306,25 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
 
     @Test
     default void testAllWhenEmpty() {
+        this.allAndCheck(
+            this.createStore()
+        );
+    }
+
+    default <KK, VV> void allAndCheck(final Store<KK, VV> store,
+                                      final VV... values) {
+        this.allAndCheck(
+            store,
+            Lists.of(values)
+        );
+    }
+
+    default <KK, VV> void allAndCheck(final Store<KK, VV> store,
+                                      final List<VV> values) {
         this.checkEquals(
-            Lists.empty(),
-            this.createStore().all()
+            values,
+            store.all(),
+            store::toString
         );
     }
 
