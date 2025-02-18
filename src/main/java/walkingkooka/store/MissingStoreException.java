@@ -103,7 +103,9 @@ public class MissingStoreException extends StoreException
     public Optional<HttpStatus> status() {
         return Optional.of(
             HttpStatusCode.NOT_FOUND.setMessage(
-                this.getMessage()
+                HttpStatus.firstLineOfText(
+                    this.getMessage()
+                )
             )
         );
     }
