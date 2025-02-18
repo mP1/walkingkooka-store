@@ -147,6 +147,17 @@ public final class MissingStoreExceptionTest implements StandardThrowableTesting
     }
 
     @Test
+    public void testHttpStatusWhenCustomMultiLineMessage() {
+        this.checkEquals(
+            Optional.of(
+                HttpStatusCode.NOT_FOUND.setMessage("Hello 111")
+            ),
+            new MissingStoreException("Hello 111\nHello 222\nHello 333")
+                .status()
+        );
+    }
+
+    @Test
     public void testHttpStatusWithHasNotFoundText() {
         this.checkEquals(
             Optional.of(
