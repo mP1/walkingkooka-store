@@ -133,7 +133,7 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
     @Override
     public Set<K> ids(final int offset,
                       final int count) {
-        Store.checkFromAndCount(offset, count);
+        Store.checkOffsetAndCount(offset, count);
 
         return this.idToValue.keySet()
             .stream()
@@ -145,7 +145,7 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
     @Override
     public List<V> values(final int offset,
                           final int count) {
-        Store.checkFromAndCount(offset, count);
+        Store.checkOffsetAndCount(offset, count);
 
         return this.idToValue.entrySet()
             .stream()
