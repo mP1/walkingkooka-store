@@ -59,14 +59,14 @@ public class FakeStore<K, V> implements Store<K, V>, Fake {
     @Override
     public Set<K> ids(final int offset,
                       final int count) {
-        Store.checkFromAndCount(offset, count);
+        Store.checkOffsetAndCount(offset, count);
         throw new UnsupportedOperationException();
     }
 
     @Override
     public List<V> values(final int offset,
                           final int count) {
-        Store.checkFromAndCount(offset, count);
+        Store.checkOffsetAndCount(offset, count);
         throw new UnsupportedOperationException();
     }
 

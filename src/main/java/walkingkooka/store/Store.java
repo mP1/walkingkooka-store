@@ -124,10 +124,10 @@ public interface Store<K, V> {
     /**
      * Useful parameter checking for both {@link #ids}
      */
-    static <K> void checkFromAndCount(final int from,
-                                      final int count) {
-        if (from < 0) {
-            throw new IllegalArgumentException("Invalid from < 0 got " + from);
+    static <K> void checkOffsetAndCount(final int offset,
+                                        final int count) {
+        if (offset < 0) {
+            throw new IllegalArgumentException("Invalid offset " + offset + " < 0");
         }
         checkCount(count);
     }
