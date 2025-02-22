@@ -124,8 +124,8 @@ public interface Store<K, V> {
     /**
      * Useful parameter checking for both {@link #ids}
      */
-    static <K> void checkOffsetAndCount(final int offset,
-                                        final int count) {
+    static void checkOffsetAndCount(final int offset,
+                                    final int count) {
         if (offset < 0) {
             throw new IllegalArgumentException("Invalid offset " + offset + " < 0");
         }
