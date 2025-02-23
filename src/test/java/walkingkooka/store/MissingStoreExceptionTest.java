@@ -140,7 +140,7 @@ public final class MissingStoreExceptionTest implements StandardThrowableTesting
 
         this.checkEquals(
             Optional.of(
-                HttpStatusCode.NOT_FOUND.setMessage(message)
+                HttpStatusCode.NO_CONTENT.setMessage(message)
             ),
             new MissingStoreException(message).status()
         );
@@ -150,7 +150,7 @@ public final class MissingStoreExceptionTest implements StandardThrowableTesting
     public void testHttpStatusWhenCustomMultiLineMessage() {
         this.checkEquals(
             Optional.of(
-                HttpStatusCode.NOT_FOUND.setMessage("Hello 111")
+                HttpStatusCode.NO_CONTENT.setMessage("Hello 111")
             ),
             new MissingStoreException("Hello 111\nHello 222\nHello 333")
                 .status()
@@ -161,7 +161,7 @@ public final class MissingStoreExceptionTest implements StandardThrowableTesting
     public void testHttpStatusWithHasNotFoundText() {
         this.checkEquals(
             Optional.of(
-                HttpStatusCode.NOT_FOUND.setMessage(NOT_FOUND_MESSAGE)
+                HttpStatusCode.NO_CONTENT.setMessage(NOT_FOUND_MESSAGE)
             ),
             new MissingStoreException(
                 new TestHasNotFoundText()
