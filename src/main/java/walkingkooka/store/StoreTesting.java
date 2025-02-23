@@ -179,7 +179,7 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
     // ids..............................................................................................................
 
     @Test
-    default void testIdsInvalidFromFails() {
+    default void testIdsWithInvalidOffsetFails() {
         assertThrows(
             IllegalArgumentException.class,
             () -> this.createStore().ids(-1, 0)
@@ -187,7 +187,7 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
     }
 
     @Test
-    default void testIdsInvalidCountFails() {
+    default void testIdsWithInvalidCountFails() {
         assertThrows(
             IllegalArgumentException.class,
             () -> this.createStore().ids(0, -1)
@@ -195,7 +195,7 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
     }
 
     @Test
-    default void testIdsOffset0AndCountZero() {
+    default void testIdsWithOffsetZeroAndCountZero() {
         this.idsAndCheck(
             this.createStore(),
             0,
@@ -204,24 +204,28 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends ClassTesting2
     }
 
     default <KK> void idsAndCheck(final Store<KK, ?> store,
-                                  final int from,
-                                  final int to,
+                                  final int offset,
+                                  final int count,
                                   final KK... ids) {
         this.idsAndCheck(
             store,
-            from,
-            to,
+            offset,
+            count,
             Sets.of(ids)
         );
     }
 
     default <KK> void idsAndCheck(final Store<KK, ?> store,
-                                  final int from,
-                                  final int to,
+                                  final int offset,
+                                  final int count,
                                   final Set<KK> ids) {
-        this.checkEquals(ids,
-            store.ids(from, to),
-            "ids from " + from + " count=" + to);
+        this.checkEquals(
+            ids,
+            store.ids(
+                offset,
+                count
+            ),
+            "ids offset " + offset + " count=" + count);
     }
 
     // values...........................................................................................................
