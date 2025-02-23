@@ -87,7 +87,8 @@ public interface Store<K, V> {
     /**
      * Returns a view of all ids between the positional range.
      */
-    Set<K> ids(final int from, final int count);
+    Set<K> ids(final int offset,
+               final int count);
 
     /**
      * Returns the first id or an {@link Optional#empty()}.
