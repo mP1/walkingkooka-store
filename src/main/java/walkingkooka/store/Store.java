@@ -136,10 +136,11 @@ public interface Store<K, V> {
     /**
      * Checks the count is greater than or equal to zero.
      */
-    static void checkCount(final int count) {
+    static int checkCount(final int count) {
         if (count < 0) {
             throw new IllegalArgumentException("Invalid count " + count + " < 0");
         }
+        return count;
     }
 
     /**
