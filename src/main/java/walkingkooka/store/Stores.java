@@ -39,8 +39,8 @@ public final class Stores implements PublicStaticHelper {
     /**
      * {@see TreeMapStore}
      */
-    public static <K extends Comparable<K>, V extends HasId<Optional<K>>> Store<K, V> treeMap(final Comparator<K> idComparator,
-                                                                                              final BiFunction<K, V, V> idSetter) {
+    public static <K, V extends HasId<Optional<K>>> Store<K, V> treeMap(final Comparator<K> idComparator,
+                                                                        final BiFunction<K, V, V> idSetter) {
         return TreeMapStore.with(idComparator, idSetter);
     }
 

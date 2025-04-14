@@ -39,13 +39,13 @@ import java.util.stream.Collectors;
  * A {@link Store} that shares a {@link TreeMap} and automatically allocates an ID if saving a value without an ID.
  * This store is intended to be decorated sharing the map.
  */
-final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> implements Store<K, V> {
+final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V> {
 
     /**
      * Factory that creates a new {@link TreeMapStore}.
      */
-    static <K extends Comparable<K>, V extends HasId<Optional<K>>> TreeMapStore<K, V> with(final Comparator<K> idComparator,
-                                                                                           final BiFunction<K, V, V> idSetter) {
+    static <K, V extends HasId<Optional<K>>> TreeMapStore<K, V> with(final Comparator<K> idComparator,
+                                                                     final BiFunction<K, V, V> idSetter) {
         Objects.requireNonNull(idComparator, "idComparator");
         Objects.requireNonNull(idSetter, "idSetter");
 
@@ -159,11 +159,13 @@ final class TreeMapStore<K extends Comparable<K>, V extends HasId<Optional<K>>> 
     public List<V> between(final K from, final K to) {
         Store.checkBetween(from, to);
 
-        final SortedMap<K, V> subMap = this.idToValue.tailMap(from);
+        final SortedMap<K, V> idToValue = this.idToValue;
+        final SortedMap<K, V> subMap = idToValue.tailMap(from);
+        final Comparator<? super K> idComparator = idToValue.comparator();
 
         final List<V> values = Lists.array();
         for (final Entry<K, V> keyAndValue : subMap.entrySet()) {
-            if (keyAndValue.getKey().compareTo(to) > 0) {
+            if (idComparator.compare(keyAndValue.getKey(), to) > 0) {
                 break;
             }
             values.add(
