@@ -33,6 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUserId, TestUser>, TestUserId, TestUser>,
     TypeNameTesting<TreeMapStore<TestUserId, TestUser>> {
 
+    private final static Comparator<TestUserId> COMPARATOR = (left, right) -> left.value - right.value;
+
     @Test
     public void testWithNullIdComparatorFails() {
         this.withFails(null, this::idSetter);
@@ -40,7 +42,10 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
 
     @Test
     public void testWithNullIdSetterFails() {
-        this.withFails(Comparator.naturalOrder(), null);
+        this.withFails(
+            COMPARATOR,
+            null
+        );
     }
 
     private void withFails(final Comparator<TestUserId> idComparator,
@@ -374,7 +379,10 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
 
     @Override
     public TreeMapStore<TestUserId, TestUser> createStore() {
-        return TreeMapStore.with(Comparator.naturalOrder(), this::idSetter);
+        return TreeMapStore.with(
+            COMPARATOR,
+            this::idSetter
+        );
     }
 
     TestUser idSetter(final TestUserId id, final TestUser user) {

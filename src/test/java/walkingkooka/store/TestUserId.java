@@ -19,7 +19,7 @@ package walkingkooka.store;
 
 import walkingkooka.Cast;
 
-final class TestUserId implements Comparable<TestUserId> {
+final class TestUserId {
 
     static TestUserId with(final int value) {
         return new TestUserId(value);
@@ -48,10 +48,5 @@ final class TestUserId implements Comparable<TestUserId> {
     @Override
     public String toString() {
         return String.valueOf(this.value);
-    }
-
-    @Override
-    public int compareTo(final TestUserId other) {
-        return this.value - other.value;
     }
 }
