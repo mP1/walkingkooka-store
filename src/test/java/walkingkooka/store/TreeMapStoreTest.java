@@ -140,7 +140,11 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         final TestUser user1 = this.user1();
         store.delete(user1.id().get());
 
-        this.loadFailCheck(store, user1.id().get());
+        this.loadAndCheck(
+            store,
+            user1.id()
+                .get()
+        );
     }
 
     @Test

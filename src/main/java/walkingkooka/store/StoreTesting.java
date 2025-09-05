@@ -47,26 +47,31 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends TreePrintable
     }
 
     default <KK, VV> void loadAndCheck(final Store<KK, VV> store,
-                                       final KK id,
-                                       final VV value) {
-        this.checkEquals(
-            Optional.of(value),
-            store.load(id),
-            () -> " store load " + id
+                                       final KK id) {
+        this.loadAndCheck(
+            store,
+            id,
+            Optional.empty()
         );
     }
 
-    default void loadFailCheck(final K id) {
-        this.loadFailCheck(this.createStore(), id);
+    default <KK, VV> void loadAndCheck(final Store<KK, VV> store,
+                                       final KK id,
+                                       final VV value) {
+        this.loadAndCheck(
+            store,
+            id,
+            Optional.of(value)
+        );
     }
 
-    default <KK, VV> void loadFailCheck(final Store<KK, VV> store,
-                                        final KK id) {
-        final Optional<VV> value = store.load(id);
+    default <KK, VV> void loadAndCheck(final Store<KK, VV> store,
+                                       final KK id,
+                                       final Optional<VV> value) {
         this.checkEquals(
-            Optional.empty(),
             value,
-            () -> "Expected id " + id + " to fail"
+            store.load(id),
+            () -> " store load " + id
         );
     }
 
