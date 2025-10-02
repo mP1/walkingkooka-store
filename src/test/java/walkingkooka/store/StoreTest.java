@@ -19,6 +19,8 @@ package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.HasNotFoundText;
+import walkingkooka.HasNotFoundTextTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 

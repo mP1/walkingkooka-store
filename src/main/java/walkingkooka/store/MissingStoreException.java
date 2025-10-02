@@ -17,6 +17,7 @@
 
 package walkingkooka.store;
 
+import walkingkooka.HasNotFoundText;
 import walkingkooka.Value;
 import walkingkooka.net.header.HasStatus;
 import walkingkooka.net.http.HttpStatus;
