@@ -17,6 +17,8 @@
 
 package walkingkooka.store;
 
+import walkingkooka.HasNotFoundText;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

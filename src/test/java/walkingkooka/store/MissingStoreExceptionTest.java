@@ -18,6 +18,8 @@
 package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.HasNotFoundText;
+import walkingkooka.HasNotFoundTextTesting;
 import walkingkooka.net.http.HttpStatusCode;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.StandardThrowableTesting;
@@ -25,7 +27,7 @@ import walkingkooka.reflect.StandardThrowableTesting;
 import java.util.Optional;
 
 public final class MissingStoreExceptionTest implements StandardThrowableTesting<MissingStoreException>,
-    HasNotFoundTextTesting{
+    HasNotFoundTextTesting {
 
     @Test
     public void testNewHasNotFoundText() {
