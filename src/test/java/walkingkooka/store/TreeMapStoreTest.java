@@ -19,6 +19,7 @@ package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.reflect.TypeNameTesting;
 
 import java.util.Arrays;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUserId, TestUser>, TestUserId, TestUser>,
+    HashCodeEqualsDefinedTesting2<TreeMapStore<TestUserId, TestUser>>,
     TypeNameTesting<TreeMapStore<TestUserId, TestUser>> {
 
     private final static Comparator<TestUserId> COMPARATOR = (left, right) -> left.value - right.value;
@@ -423,6 +425,41 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
             from,
             to,
             Arrays.asList(ids).stream().map(i -> i.get()).collect(Collectors.toSet()));
+    }
+
+    // hashCode/equals..................................................................................................
+
+    @Test
+    public void testEquals2() {
+        final TreeMapStore<TestUserId, TestUser> store1 = this.createStore();
+        store1.save(
+            this.user1()
+        );
+
+        final TreeMapStore<TestUserId, TestUser> store2 = this.createStore();
+        store2.save(
+            this.user1()
+        );
+
+        this.checkEquals(
+            store1,
+            store2
+        );
+    }
+
+    @Test
+    public void testEqualsDifferent() {
+        final TreeMapStore<TestUserId, TestUser> different = this.createStore();
+        different.save(
+            this.user1()
+        );
+
+        this.checkNotEquals(different);
+    }
+
+    @Override
+    public TreeMapStore<TestUserId, TestUser> createObject() {
+        return this.createStore();
     }
 
     // ClassTesting.....................................................................................................
