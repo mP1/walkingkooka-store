@@ -182,6 +182,24 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
     // VisibleForTesting
     final SortedMap<K, V> idToValue;
 
+    // Object...........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return this.idToValue.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+            (other instanceof TreeMapStore &&
+                this.equals0((TreeMapStore<?, ?>) other));
+    }
+
+    private boolean equals0(final TreeMapStore<?, ?> other) {
+        return this.idToValue.equals(other.idToValue);
+    }
+
     @Override
     public String toString() {
         return this.idToValue.values().toString();
