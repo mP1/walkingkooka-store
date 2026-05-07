@@ -18,7 +18,7 @@
 package walkingkooka.store;
 
 import walkingkooka.HasNotFoundText;
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.net.header.HasStatus;
 import walkingkooka.net.http.HttpStatus;
 import walkingkooka.net.http.HttpStatusCode;
@@ -30,7 +30,7 @@ import java.util.Optional;
  * This exception is thrown when a load fails, recording a message and possibly the ID itself.
  */
 public class MissingStoreException extends StoreException
-    implements Value<Optional<?>>,
+    implements HasValue<Optional<?>>,
     HasStatus {
 
     private static final long serialVersionUID = 1L;
