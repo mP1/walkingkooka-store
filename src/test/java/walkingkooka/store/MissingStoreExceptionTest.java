@@ -91,10 +91,9 @@ public final class MissingStoreExceptionTest implements StandardThrowableTesting
                              final String message,
                              final Optional<?> value,
                              final Throwable cause) {
-        this.checkEquals(
-            message,
-            exception.getMessage(),
-            "message"
+        this.getMessageAndCheck(
+            exception,
+            message
         );
 
         this.valueAndCheck(
@@ -102,10 +101,9 @@ public final class MissingStoreExceptionTest implements StandardThrowableTesting
             value
         );
 
-        this.checkEquals(
-            cause,
-            exception.getCause(),
-            "cause"
+        this.getCauseAndCheck(
+            exception,
+            cause
         );
     }
 
