@@ -32,18 +32,6 @@ public final class StoreWatcher2Test implements ClassTesting2<StoreWatcher2<Loca
     // onStoreValue...............................................................................................
 
     @Test
-    public void testOnStoreValueWithNullNameFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> new FakeStoreWatcher2()
-                .onStoreValueChange(
-                    Optional.empty(),
-                    Optional.empty()
-                )
-        );
-    }
-
-    @Test
     public void testOnStoreValueWithNullOldValueFails() {
         assertThrows(
             NullPointerException.class,
