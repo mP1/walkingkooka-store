@@ -107,7 +107,7 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
         return this.saveWatchers.add(saved);
     }
 
-    private final Watchers<V> saveWatchers = Watchers.create();
+    private final Watchers<V> saveWatchers = Watchers.empty();
 
     @Override
     public void delete(final K id) {
@@ -123,7 +123,7 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
         return this.deleteWatchers.add(deleted);
     }
 
-    private final Watchers<K> deleteWatchers = Watchers.create();
+    private final Watchers<K> deleteWatchers = Watchers.empty();
 
     @Override
     public int count() {
