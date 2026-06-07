@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * A store that holds a value with an id (K).
@@ -65,21 +64,9 @@ public interface Store<K, V> {
     V save(final V value);
 
     /**
-     * Adds a watcher that will receive values after a save.<br>
-     * Note the watcher will only be fired when new or different values are saved. Saving the same value twice in succession
-     * should only fire the first time, ignoring the second because it is identical.
-     */
-    Runnable addSaveWatcher(final Consumer<V> saved);
-
-    /**
      * Deletes a single value by id.
      */
     void delete(final K id);
-
-    /**
-     * Adds a watcher that will receive values after a deleted.
-     */
-    Runnable addDeleteWatcher(final Consumer<K> deleted);
 
     /**
      * Returns the total number of records in the store.
@@ -157,4 +144,9 @@ public interface Store<K, V> {
         Objects.requireNonNull(from, "from");
         Objects.requireNonNull(to, "to");
     }
+
+    /**
+     * Adds a {@link StoreWatcher}
+     */
+    Runnable addStoreWatcher(final StoreWatcher<V> watcher);
 }

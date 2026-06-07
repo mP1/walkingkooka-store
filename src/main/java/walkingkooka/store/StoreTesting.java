@@ -85,59 +85,6 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends TreePrintable
         );
     }
 
-    // addSaveWatcher...................................................................................................
-
-    @Test
-    default void testAddSaveWatcherNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createStore().addSaveWatcher(null)
-        );
-    }
-
-    @Test
-    default void testAddSaveWatcherAndSave() {
-        final V value = this.value();
-
-        final S store = this.createStore();
-
-        final List<V> fired = Lists.array();
-        store.addSaveWatcher((s) -> fired.add(s));
-
-        final V saved = store.save(value);
-
-        this.checkEquals(
-            Lists.of(saved),
-            fired,
-            "fired values"
-        );
-    }
-
-    @Test
-    default void testAddSaveWatcherAndSaveTwiceFiresOnce() {
-        final V value = this.value();
-
-        final S store = this.createStore();
-
-        final List<V> fired = Lists.array();
-        store.addSaveWatcher((s) -> fired.add(s));
-
-        final V saved = store.save(value);
-        store.save(value);
-
-        this.checkEquals(
-            Lists.of(saved),
-            fired,
-            "fired values"
-        );
-    }
-
-    @Test
-    default void testAddSaveWatcherAndRemove() {
-        this.createStore().addSaveWatcher((v) -> {
-        }).run();
-    }
-
     // delete...........................................................................................................
 
     @Test
@@ -145,42 +92,6 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends TreePrintable
         assertThrows(NullPointerException.class, () -> {
             this.createStore().delete(null);
         });
-    }
-
-    // addDeleteWatcher.................................................................................................
-
-    @Test
-    default void testAddDeleteWatcherNullFails() {
-        assertThrows(NullPointerException.class, () -> {
-            this.createStore().addDeleteWatcher(null);
-        });
-    }
-
-    @Test
-    default void testAddDeleteWatcherAndRemove() {
-        this.createStore().addDeleteWatcher((k) -> {
-        }).run();
-    }
-
-    @Test
-    default void testAddDeleteWatcherAndDelete() {
-        final V value = this.value();
-
-        final S store = this.createStore();
-
-        final List<K> fired = Lists.array();
-        store.addDeleteWatcher((d) -> fired.add(d));
-
-        store.save(value);
-
-        final K id = this.id();
-        store.delete(id);
-
-        this.checkEquals(
-            Lists.of(id),
-            fired,
-            "fired values"
-        );
     }
 
     // ids..............................................................................................................
@@ -398,6 +309,90 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends TreePrintable
     K id();
 
     V value();
+
+    // addStoreWatcher..................................................................................................
+
+    @Test
+    default void testAddStoreWatcherWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStore().addStoreWatcher(null)
+        );
+    }
+
+    @Test
+    default void testAddStoreWatcherAndSave() {
+        final V value = this.value();
+
+        final S store = this.createStore();
+
+        final List<V> fired = Lists.array();
+        store.addStoreWatcher(
+            (ov, nv) ->
+                fired.add(
+                    nv.orElse(null)
+                )
+        );
+
+        final V saved = store.save(value);
+
+        this.checkEquals(
+            Lists.of(saved),
+            fired,
+            "fired values"
+        );
+    }
+
+    @Test
+    default void testAddStoreWatcherAndSaveTwiceFiresOnce() {
+        final V value = this.value();
+
+        final S store = this.createStore();
+
+        final List<V> fired = Lists.array();
+        store.addStoreWatcher(
+            (ov, nv) -> fired.add(
+                nv.orElse(null)
+            )
+        );
+
+        final V saved = store.save(value);
+        store.save(value);
+
+        this.checkEquals(
+            Lists.of(saved),
+            fired,
+            "fired values"
+        );
+    }
+
+    @Test
+    default void testAddStoreWatcherAndDelete() {
+        final V value = this.value();
+
+        final S store = this.createStore();
+
+        final List<V> fired = Lists.array();
+        store.addStoreWatcher(
+            (ov, nv) -> fired.add(
+                nv.orElse(null)
+            )
+        );
+
+        store.save(value);
+
+        final K id = this.id();
+        store.delete(id);
+
+        this.checkEquals(
+            Lists.of(
+                value,
+                null
+            ),
+            fired,
+            "fired values"
+        );
+    }
 
     // class............................................................................................................
 

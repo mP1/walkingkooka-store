@@ -39,16 +39,6 @@ public interface ReadOnlyStoreTesting<S extends Store<K, V>, K, V> extends Store
     }
 
     @Test
-    default void testAddSaveWatcherAndRemoveFails() {
-        assertThrows(
-            UnsupportedOperationException.class,
-            () -> this.createStore()
-                .addSaveWatcher((a) -> {
-                })
-        );
-    }
-
-    @Test
     default void testDeleteFails() {
         final K id = this.id();
 
@@ -57,16 +47,6 @@ public interface ReadOnlyStoreTesting<S extends Store<K, V>, K, V> extends Store
             () -> {
                 this.createStore().delete(id);
             });
-    }
-
-    @Test
-    default void testAddDeleteWatcherAndRemoveFails() {
-        assertThrows(
-            UnsupportedOperationException.class,
-            () -> this.createStore()
-                .addDeleteWatcher((a) -> {
-                })
-        );
     }
 
     // class............................................................................................................
