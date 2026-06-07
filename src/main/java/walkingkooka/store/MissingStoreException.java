@@ -36,7 +36,7 @@ public class MissingStoreException extends StoreException
     private static final long serialVersionUID = 1L;
 
     protected MissingStoreException() {
-        this((String) "");
+        this("");
     }
 
     public MissingStoreException(final String message) {
