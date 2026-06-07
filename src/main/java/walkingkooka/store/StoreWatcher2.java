@@ -2,9 +2,6 @@ package walkingkooka.store;
 
 import walkingkooka.watch.ValueChangeWatcher2;
 
-import java.util.Objects;
-import java.util.Optional;
-
 /**
  * A {@link StoreWatcher2} that routes each event to add/remove/update.
  */
