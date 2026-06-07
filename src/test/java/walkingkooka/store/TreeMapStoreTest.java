@@ -39,52 +39,85 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
 
     @Test
     public void testWithNullIdComparatorFails() {
-        this.withFails(null, this::idSetter);
+        assertThrows(
+            NullPointerException.class,
+            () -> TreeMapStore.with(
+                null,
+                this::idSetter
+            )
+        );
     }
 
     @Test
     public void testWithNullIdSetterFails() {
-        this.withFails(
-            COMPARATOR,
-            null
+        assertThrows(
+            NullPointerException.class,
+            () -> TreeMapStore.with(
+                COMPARATOR,
+                (BiFunction<TestUserId, TestUser, TestUser>) null
+            )
         );
-    }
-
-    private void withFails(final Comparator<TestUserId> idComparator,
-                           final BiFunction<TestUserId, TestUser, TestUser> idSetter) {
-        assertThrows(NullPointerException.class, () -> {
-            TreeMapStore.with(idComparator, idSetter);
-        });
     }
 
     @Test
     public void testLoad1() {
-        this.loadAndCheck(this.createNotEmptyStore(), this.user2().id().get(), this.user2());
+        this.loadAndCheck(
+            this.createNotEmptyStore(),
+            this.user2()
+                .id()
+                .get(),
+            this.user2()
+        );
     }
 
     @Test
     public void testLoad2() {
-        this.loadAndCheck(this.createNotEmptyStore(), this.user3().id().get(), this.user3());
+        this.loadAndCheck(
+            this.createNotEmptyStore(),
+            this.user3()
+                .id()
+                .get(),
+            this.user3()
+        );
     }
 
     @Test
     public void testSaveWithId() {
         final TreeMapStore<TestUserId, TestUser> store = this.createNotEmptyStore();
 
-        final TestUser saved = TestUser.with(Optional.of(TestUserId.with(2)), "saved@example.com");
+        final TestUser saved = TestUser.with(
+            Optional.of(
+                TestUserId.with(2)
+            ),
+            "saved@example.com"
+        );
         store.save(saved);
 
-        this.loadAndCheck(store, saved.id().get(), saved);
+        this.loadAndCheck(
+            store,
+            saved.id()
+                .get(),
+            saved
+        );
     }
 
     @Test
     public void testSaveReplaces() {
         final TreeMapStore<TestUserId, TestUser> store = this.createNotEmptyStore();
 
-        final TestUser replace = TestUser.with(this.user3().id(), "replaced@example.com");
+        final TestUser replace = TestUser.with(
+            this.user3()
+                .id(),
+            "replaced@example.com"
+        );
         store.save(replace);
 
-        this.loadAndCheck(store, replace.id().get(), replace);
+        this.loadAndCheck(
+            store,
+            replace.id()
+                .get(),
+            replace
+        );
     }
 
     @Test
@@ -94,11 +127,33 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
 
         final String email = "saved@example.com";
 
-        final TestUser saved = store.save(TestUser.with(Optional.empty(), email));
-        this.checkEquals(TestUser.with(Optional.of(TestUserId.with(1)), email), saved, "id");
+        final TestUser saved = store.save(
+            TestUser.with(
+                Optional.empty(),
+                email
+            )
+        );
+        this.checkEquals(
+            TestUser.with(
+                Optional.of(
+                    TestUserId.with(1)
+                ),
+                email
+            ),
+            saved,
+            "id"
+        );
 
-        this.loadAndCheck(store, saved.id().get(), saved);
-        this.countAndCheck(store, 1);
+        this.loadAndCheck(
+            store,
+            saved.id()
+                .get(),
+            saved
+        );
+        this.countAndCheck(
+            store,
+            1
+        );
     }
 
     @Test
@@ -108,11 +163,33 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
 
         final String email = "saved@example.com";
 
-        final TestUser saved = store.save(TestUser.with(Optional.empty(), email));
-        this.checkEquals(TestUser.with(Optional.of(TestUserId.with(334)), email), saved, "id");
+        final TestUser saved = store.save(
+            TestUser.with(
+                Optional.empty(),
+                email
+            )
+        );
+        this.checkEquals(
+            TestUser.with(
+                Optional.of(
+                    TestUserId.with(334)
+                ),
+                email
+            ),
+            saved,
+            "id"
+        );
 
-        this.loadAndCheck(store, saved.id().get(), saved);
-        this.countAndCheck(store, 4);
+        this.loadAndCheck(
+            store,
+            saved.id()
+                .get(),
+            saved
+        );
+        this.countAndCheck(
+            store,
+            4
+        );
     }
 
     @Test
@@ -122,17 +199,53 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
 
         final String email = "saved1@example.com";
 
-        final TestUser saved1 = store.save(TestUser.with(Optional.empty(), email));
-        this.checkEquals(TestUser.with(Optional.of(TestUserId.with(334)), email), saved1, "id");
+        final TestUser saved1 = store.save(
+            TestUser.with(
+                Optional.empty(),
+                email
+            )
+        );
+        this.checkEquals(
+            TestUser.with(
+                Optional.of(
+                    TestUserId.with(334)
+                ),
+                email
+            ),
+            saved1,
+            "id"
+        );
 
         final String email2 = "saved2@example.com";
 
-        final TestUser saved2 = store.save(TestUser.with(Optional.empty(), email2));
-        this.checkEquals(TestUser.with(Optional.of(TestUserId.with(335)), email2), saved2, "id");
+        final TestUser saved2 = store.save(
+            TestUser.with(
+                Optional.empty(),
+                email2
+            )
+        );
+        this.checkEquals(
+            TestUser.with(
+                Optional.of(
+                    TestUserId.with(335)
+                ),
+                email2
+            ),
+            saved2,
+            "id"
+        );
 
-        this.loadAndCheck(store, saved2.id().get(), saved2);
+        this.loadAndCheck(
+            store,
+            saved2.id()
+                .get(),
+            saved2
+        );
 
-        this.countAndCheck(store, 5);
+        this.countAndCheck(
+            store,
+            5
+        );
     }
 
     @Test
@@ -140,7 +253,10 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         final TreeMapStore<TestUserId, TestUser> store = this.createNotEmptyStore();
 
         final TestUser user1 = this.user1();
-        store.delete(user1.id().get());
+        store.delete(
+            user1.id()
+                .get()
+        );
 
         this.loadAndCheck(
             store,
@@ -158,9 +274,19 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
     public void testCountAfterSave() {
         final TreeMapStore<TestUserId, TestUser> store = this.createNotEmptyStore();
 
-        store.save(TestUser.with(Optional.of(TestUserId.with(999)), "saved@example.com"));
+        store.save(
+            TestUser.with(
+                Optional.of(
+                    TestUserId.with(999)
+                ),
+                "saved@example.com"
+            )
+        );
 
-        this.countAndCheck(store, 3 + 1);
+        this.countAndCheck(
+            store,
+            3 + 1
+        );
     }
 
     @Test
@@ -175,7 +301,14 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(b);
         store.save(c);
 
-        this.idsAndCheck2(store, 0, 3, a.id(), b.id(), c.id());
+        this.idsAndCheck2(
+            store,
+            0,
+            3,
+            a.id(),
+            b.id(),
+            c.id()
+        );
     }
 
     @Test
@@ -192,7 +325,13 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         store.save(c);
         store.save(d);
 
-        this.idsAndCheck2(store, 1, 2, b.id(), c.id());
+        this.idsAndCheck2(
+            store,
+            1,
+            2,
+            b.id(),
+            c.id()
+        );
     }
 
     @Test
@@ -351,7 +490,7 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         );
     }
 
-    // toString........................................................................................................
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
@@ -362,26 +501,44 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
     // helpers..........................................................................................................
 
     private TestUser user1() {
-        return this.user(1, "user1@example.com");
+        return this.user(
+            1,
+            "user1@example.com"
+        );
     }
 
     private TestUser user2() {
-        return this.user(2, "user2@example.com");
+        return this.user(
+            2,
+            "user2@example.com"
+        );
     }
 
     private TestUser user3() {
-        return this.user(333, "user3@example.com");
+        return this.user(
+            333,
+            "user3@example.com"
+        );
     }
 
     private TestUser user4() {
-        return this.user(444, "user4@example.com");
+        return this.user(
+            444,
+            "user4@example.com"
+        );
     }
 
-    private TestUser user(final int value, final String email) {
-        return TestUser.with(Optional.of(TestUserId.with(value)), email);
+    private TestUser user(final int value,
+                          final String email) {
+        return TestUser.with(
+            Optional.of(
+                TestUserId.with(value)
+            ),
+            email
+        );
     }
 
-    // StoreTesting..........................................................................................
+    // StoreTesting...................................................///////////.......................................
 
     @Override
     public TreeMapStore<TestUserId, TestUser> createStore() {
@@ -391,15 +548,27 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         );
     }
 
-    TestUser idSetter(final TestUserId id, final TestUser user) {
-        return TestUser.with(Optional.of(TestUserId.with(null == id ? 1 : id.value + 1)), user.email);
+    TestUser idSetter(final TestUserId id,
+                      final TestUser user) {
+        return TestUser.with(
+            Optional.of(
+                TestUserId.with(null == id ?
+                    1 :
+                    id.value + 1
+                )
+            ),
+            user.email
+        );
     }
 
     private TreeMapStore<TestUserId, TestUser> createNotEmptyStore() {
         final TreeMapStore<TestUserId, TestUser> store = this.createStore();
 
-        Arrays.asList(user1(), user2(), user3())
-            .stream()
+        Arrays.asList(
+                user1(),
+                user2(),
+                user3()
+            ).stream()
             .forEach(u -> {
                 store.idToValue.put(u.id().get(), u);
             });
@@ -421,10 +590,15 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
                               final int from,
                               final int to,
                               final Optional<TestUserId>... ids) {
-        this.idsAndCheck(store,
+        this.idsAndCheck(
+            store,
             from,
             to,
-            Arrays.asList(ids).stream().map(i -> i.get()).collect(Collectors.toSet()));
+            Arrays.asList(ids)
+                .stream()
+                .map(i -> i.get())
+                .collect(Collectors.toSet())
+        );
     }
 
     // hashCode/equals..................................................................................................
