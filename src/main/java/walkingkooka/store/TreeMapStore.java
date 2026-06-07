@@ -21,7 +21,6 @@ import walkingkooka.HasId;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.watch.Watchers;
 
 import java.util.Comparator;
 import java.util.List;
@@ -32,7 +31,6 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -78,9 +76,14 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
             this.saveNew(value);
     }
 
-    private V update(final K id, final V value) {
-        if (false == value.equals(this.idToValue.put(id, value))) {
-            this.saveWatchers.accept(value);
+    private V update(final K id,
+                     final V value) {
+        final V previous = this.idToValue.put(id, value);
+        if (false == value.equals(previous)) {
+            this.watchers.onValueChange(
+                Optional.ofNullable(previous),
+                Optional.of(value)
+            );
         }
         return value;
     }
@@ -91,9 +94,17 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
         final K max = idToValue.isEmpty() ?
             null :
             idToValue.lastKey();
+
         final V valueWithId = this.idSetter.apply(max, value);
-        idToValue.put(valueWithId.id().get(), valueWithId);
-        this.saveWatchers.accept(valueWithId);
+        idToValue.put(
+            valueWithId.id()
+                .get(),
+            valueWithId
+        );
+        this.watchers.onValueChange(
+            Optional.of(valueWithId),
+            Optional.empty()
+        );
         return valueWithId;
     }
 
@@ -103,27 +114,17 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
     private final BiFunction<K, V, V> idSetter;
 
     @Override
-    public Runnable addSaveWatcher(final Consumer<V> saved) {
-        return this.saveWatchers.add(saved);
-    }
-
-    private final Watchers<V> saveWatchers = Watchers.empty();
-
-    @Override
     public void delete(final K id) {
         Objects.requireNonNull(id, "id");
 
-        if (null != this.idToValue.remove(id)) {
-            this.deleteWatchers.accept(id);
+        final V deleted = this.idToValue.remove(id);
+        if (null != deleted) {
+            this.watchers.onValueChange(
+                Optional.of(deleted),
+                Optional.empty()
+            );
         }
     }
-
-    @Override
-    public Runnable addDeleteWatcher(final Consumer<K> deleted) {
-        return this.deleteWatchers.add(deleted);
-    }
-
-    private final Watchers<K> deleteWatchers = Watchers.empty();
 
     @Override
     public int count() {
@@ -181,6 +182,13 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
      */
     // VisibleForTesting
     final SortedMap<K, V> idToValue;
+
+    @Override
+    public Runnable addStoreWatcher(final StoreWatcher<V> watcher) {
+        return this.watchers.add(watcher);
+    }
+
+    private final StoreWatchers<V> watchers = StoreWatchers.empty();
 
     // Object...........................................................................................................
 

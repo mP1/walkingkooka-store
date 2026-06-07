@@ -22,7 +22,6 @@ import walkingkooka.test.Fake;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
 
 public class FakeStore<K, V> implements Store<K, V>, Fake {
 
@@ -37,17 +36,7 @@ public class FakeStore<K, V> implements Store<K, V>, Fake {
     }
 
     @Override
-    public Runnable addSaveWatcher(final Consumer<V> saved) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void delete(final K id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Runnable addDeleteWatcher(final Consumer<K> deleted) {
         throw new UnsupportedOperationException();
     }
 
@@ -74,6 +63,11 @@ public class FakeStore<K, V> implements Store<K, V>, Fake {
     public List<V> between(final K from,
                            final K to) {
         Store.checkBetween(from, to);
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addStoreWatcher(final StoreWatcher<V> watcher) {
         throw new UnsupportedOperationException();
     }
 }
