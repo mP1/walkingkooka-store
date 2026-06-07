@@ -18,13 +18,10 @@
 package walkingkooka.store;
 
 
-import java.util.Optional;
+import walkingkooka.watch.ValueChangeWatcher;
 
 /**
- * A watcher that receives all {@link Store} value change events.
+ * A {@link ValueChangeWatcher} that receives all {@link Store} value change events.
  */
-public interface StoreWatcher<V> {
-
-    void onStoreValueChange(final Optional<V> oldValue,
-                            final Optional<V> newValue);
+public interface StoreWatcher<V> extends ValueChangeWatcher<V> {
 }

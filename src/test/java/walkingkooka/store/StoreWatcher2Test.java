@@ -29,14 +29,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class StoreWatcher2Test implements ClassTesting2<StoreWatcher2<Locale>> {
 
-    // onStoreValue...............................................................................................
+    // onValueChange....................................................................................................
 
     @Test
-    public void testOnStoreValueWithNullOldValueFails() {
+    public void testOnValueChangeWithNullOldValueFails() {
         assertThrows(
             NullPointerException.class,
             () -> new FakeStoreWatcher2()
-                .onStoreValueChange(
+                .onValueChange(
                     null,
                     Optional.empty()
                 )
@@ -44,33 +44,33 @@ public final class StoreWatcher2Test implements ClassTesting2<StoreWatcher2<Loca
     }
 
     @Test
-    public void testOnStoreValueWithNullNewValueFails() {
+    public void testOnValueChangeWithNullNewValueFails() {
         assertThrows(
             NullPointerException.class,
             () -> new FakeStoreWatcher2()
-                .onStoreValueChange(
+                .onValueChange(
                     Optional.empty(),
                     null
                 )
         );
     }
 
-    // onStoreValueAdd............................................................................................
+    // onValueChangeAdd.................................................................................................
 
     @Test
-    public void testOnStoreValueAdd() {
+    public void testOnValueChangeAdd() {
         this.fired = false;
 
         final Locale value = Locale.ENGLISH;
 
         new FakeStoreWatcher2() {
             @Override
-            public void onStoreValueAdd(final Locale nv) {
+            public void onValueChangeAdd(final Locale nv) {
                 checkEquals(value, nv, "newValue");
 
                 StoreWatcher2Test.this.fired = true;
             }
-        }.onStoreValueChange(
+        }.onValueChange(
             Optional.empty(),
             Optional.of(value)
         );
@@ -81,10 +81,10 @@ public final class StoreWatcher2Test implements ClassTesting2<StoreWatcher2<Loca
         );
     }
 
-    // onStoreValueRemove.........................................................................................
+    // onValueChangeRemove..............................................................................................
 
     @Test
-    public void testOnStoreValueRemove() {
+    public void testOnValueChangeRemove() {
         this.fired = false;
 
         final Locale value = Locale.ENGLISH;
@@ -92,13 +92,13 @@ public final class StoreWatcher2Test implements ClassTesting2<StoreWatcher2<Loca
         new FakeStoreWatcher2() {
 
             @Override
-            public void onStoreValueRemove(final Locale ov) {
+            public void onValueChangeRemove(final Locale ov) {
                 checkEquals(value, ov, "oldValue");
 
                 StoreWatcher2Test.this.fired = true;
             }
 
-        }.onStoreValueChange(
+        }.onValueChange(
             Optional.of(value),
             Optional.empty()
         );
@@ -109,10 +109,10 @@ public final class StoreWatcher2Test implements ClassTesting2<StoreWatcher2<Loca
         );
     }
 
-    // onStoreValueUpdate...............................................................................................
+    // onValueChangeUpdate..............................................................................................
 
     @Test
-    public void testOnStoreValueUpdate() {
+    public void testOnValueChangeUpdate() {
         this.fired = false;
 
         final Locale oldValue = Locale.ENGLISH;
@@ -121,14 +121,14 @@ public final class StoreWatcher2Test implements ClassTesting2<StoreWatcher2<Loca
         new FakeStoreWatcher2() {
 
             @Override
-            public void onStoreValueUpdate(final Locale ov,
-                                           final Locale nv) {
+            public void onValueChangeReplace(final Locale ov,
+                                             final Locale nv) {
                 checkEquals(oldValue, ov, "oldValue");
                 checkEquals(newValue, nv, "newValue");
 
                 StoreWatcher2Test.this.fired = true;
             }
-        }.onStoreValueChange(
+        }.onValueChange(
             Optional.of(oldValue),
             Optional.of(newValue)
         );
@@ -144,18 +144,18 @@ public final class StoreWatcher2Test implements ClassTesting2<StoreWatcher2<Loca
     static class FakeStoreWatcher2 implements StoreWatcher2<Locale> {
 
         @Override
-        public void onStoreValueAdd(final Locale nv) {
+        public void onValueChangeAdd(final Locale nv) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public void onStoreValueRemove(final Locale ov) {
+        public void onValueChangeRemove(final Locale ov) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public void onStoreValueUpdate(final Locale ov,
-                                       final Locale nv) {
+        public void onValueChangeReplace(final Locale ov,
+                                         final Locale nv) {
             throw new UnsupportedOperationException();
         }
     }
