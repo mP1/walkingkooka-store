@@ -32,37 +32,44 @@ public interface ReadOnlyStoreTesting<S extends Store<K, V>, K, V> extends Store
     default void testSaveFails() {
         final V value = this.value();
 
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createStore().save(value);
-        });
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> this.createStore().save(value)
+        );
     }
 
     @Test
     default void testAddSaveWatcherAndRemoveFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createStore().addSaveWatcher((a) -> {
-            });
-        });
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> this.createStore()
+                .addSaveWatcher((a) -> {
+                })
+        );
     }
 
     @Test
     default void testDeleteFails() {
         final K id = this.id();
 
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createStore().delete(id);
-        });
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> {
+                this.createStore().delete(id);
+            });
     }
 
     @Test
     default void testAddDeleteWatcherAndRemoveFails() {
-        assertThrows(UnsupportedOperationException.class, () -> {
-            this.createStore().addDeleteWatcher((a) -> {
-            });
-        });
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> this.createStore()
+                .addDeleteWatcher((a) -> {
+                })
+        );
     }
 
-    // TypeNameTesting..................................................................
+    // class............................................................................................................
 
     @Override
     default String typeNamePrefix() {
