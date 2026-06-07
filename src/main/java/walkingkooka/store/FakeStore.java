@@ -70,7 +70,9 @@ public class FakeStore<K, V> implements Store<K, V>, Fake {
         throw new UnsupportedOperationException();
     }
 
-    public List<V> between(final K from, final K to) {
+    @Override
+    public List<V> between(final K from,
+                           final K to) {
         Store.checkBetween(from, to);
         throw new UnsupportedOperationException();
     }
