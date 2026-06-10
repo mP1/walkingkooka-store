@@ -29,6 +29,13 @@ import java.util.Optional;
 public final class MultiValueStores implements PublicStaticHelper {
 
     /**
+     * {@see FakeMultiValueStore}
+     */
+    public static <K, V extends HasId<Optional<K>>> Store<K, V> fake() {
+        return new FakeMultiValueStore<>();
+    }
+
+    /**
      * {@see TreeMapMultiValueStore}
      */
     public static <K, V extends HasId<Optional<K>>> Store<K, V> treeMap(final Comparator<K> idComparator) {
