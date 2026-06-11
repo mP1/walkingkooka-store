@@ -58,10 +58,10 @@ public interface MultiValueStoreDelegator<K, V> extends StoreDelegator<K, V>,
     }
 
     @Override
-    default void remove(final K id,
-                        final V value) {
+    default void removeValue(final K id,
+                             final V value) {
         this.multiValueStore()
-            .remove(
+            .removeValue(
                 id,
                 value
             );

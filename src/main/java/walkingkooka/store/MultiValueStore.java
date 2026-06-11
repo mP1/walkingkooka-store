@@ -29,8 +29,8 @@ public interface MultiValueStore<K, V> extends Store<K, V> {
     void addValue(final K id,
                   final V value);
 
-    void remove(final K id,
-                final V value);
+    void removeValue(final K id,
+                     final V value);
 
     List<V> findValuesById(final K id,
                            final int offset,

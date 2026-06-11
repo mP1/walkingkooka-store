@@ -52,14 +52,14 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
         );
     }
 
-    // remove...........................................................................................................
+    // removeValue......................................................................................................
 
     @Test
-    default void testRemoveNullIdFails() {
+    default void testRemoveValueNullIdFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createStore()
-                .remove(
+                .removeValue(
                     null,
                     this.value()
                 )
@@ -67,11 +67,11 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
     }
 
     @Test
-    default void testRemoveNullValueFails() {
+    default void testRemoveValueNullValueFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createStore()
-                .remove(
+                .removeValue(
                     this.id(),
                     null
                 )
