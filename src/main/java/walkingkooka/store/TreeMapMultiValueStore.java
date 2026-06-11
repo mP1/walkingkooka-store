@@ -135,8 +135,8 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
     // MultiValueStore..................................................................................................
 
     @Override
-    public void add(final K id,
-                    final V value) {
+    public void addValue(final K id,
+                         final V value) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(value, "value");
 

@@ -26,8 +26,8 @@ import java.util.Optional;
  */
 public interface MultiValueStore<K, V> extends Store<K, V> {
 
-    void add(final K id,
-             final V value);
+    void addValue(final K id,
+                  final V value);
 
     void remove(final K id,
                 final V value);

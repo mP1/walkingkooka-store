@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class MultiValueStoreWatchersTest implements ClassTesting<MultiValueStoreWatchers<Void, Void>> {
 
     @Test
-    public void testAddWithNullFails() {
+    public void testAddValueWithNullFails() {
         assertThrows(
             NullPointerException.class,
             () -> MultiValueStoreWatchers.empty()
@@ -38,7 +38,7 @@ public final class MultiValueStoreWatchersTest implements ClassTesting<MultiValu
     }
 
     @Test
-    public void testAddOnceWithNullFails() {
+    public void testAddValueOnceWithNullFails() {
         assertThrows(
             NullPointerException.class,
             () -> MultiValueStoreWatchers.empty()

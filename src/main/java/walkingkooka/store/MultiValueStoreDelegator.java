@@ -48,10 +48,10 @@ public interface MultiValueStoreDelegator<K, V> extends StoreDelegator<K, V>,
     // MultiValueStore..................................................................................................
 
     @Override
-    default void add(final K id,
-                     final V value) {
+    default void addValue(final K id,
+                          final V value) {
         this.multiValueStore()
-            .add(
+            .addValue(
                 id,
                 value
             );
