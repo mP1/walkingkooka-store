@@ -159,8 +159,8 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
     }
 
     @Override
-    public void remove(final K id,
-                       final V value) {
+    public void removeValue(final K id,
+                            final V value) {
         Objects.requireNonNull(id, "id");
         Objects.requireNonNull(value, "value");
 

@@ -34,8 +34,8 @@ public class FakeMultiValueStore<K, V> extends FakeStore<K, V> implements MultiV
     }
 
     @Override
-    public void remove(final K id,
-                       final V value) {
+    public void removeValue(final K id,
+                            final V value) {
         throw new UnsupportedOperationException();
     }
 
