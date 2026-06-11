@@ -38,7 +38,7 @@ public final class MultiValueStores implements PublicStaticHelper {
     /**
      * {@see TreeMapMultiValueStore}
      */
-    public static <K, V extends HasId<Optional<K>>> Store<K, V> treeMap(final Comparator<K> idComparator) {
+    public static <K, V extends HasId<Optional<K>>> MultiValueStore<K, V> treeMap(final Comparator<K> idComparator) {
         return TreeMapMultiValueStore.with(idComparator);
     }
 
