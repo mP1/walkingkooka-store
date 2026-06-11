@@ -25,13 +25,13 @@ import java.util.Optional;
 public interface MultiValueStoreWatcher<K, V> extends StoreWatcher<V> {
 
     /**
-     * Fired by {@link MultiValueStore#add(Object, Object)} when a new value is added.
+     * Fired by {@link MultiValueStore#addValue(Object, Object)} when a new value is added.
      */
     void onValueAdded(final K id,
                       final V value);
 
     /**
-     * Fired by {@link MultiValueStore#add(Object, Object)} when an old value is removed.
+     * Fired by {@link MultiValueStore#addValue(Object, Object)} when an old value is removed.
      */
     void onValueRemoved(final K id,
                         final V value);

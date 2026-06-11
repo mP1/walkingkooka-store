@@ -28,8 +28,8 @@ public class FakeMultiValueStore<K, V> extends FakeStore<K, V> implements MultiV
     // MultiValueStore..................................................................................................
 
     @Override
-    public void add(final K id,
-                    final V value) {
+    public void addValue(final K id,
+                         final V value) {
         throw new UnsupportedOperationException();
     }
 

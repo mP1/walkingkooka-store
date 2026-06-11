@@ -26,14 +26,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> extends StoreTesting<S, K, V> {
 
-    // add..............................................................................................................
+    // addValue.........................................................................................................
 
     @Test
-    default void testAddNullIdFails() {
+    default void testAddValueNullIdFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createStore()
-                .add(
+                .addValue(
                     null,
                     this.value()
                 )
@@ -41,11 +41,11 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
     }
 
     @Test
-    default void testAddNullValueFails() {
+    default void testAddValueNullValueFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createStore()
-                .add(
+                .addValue(
                     this.id(),
                     null
                 )

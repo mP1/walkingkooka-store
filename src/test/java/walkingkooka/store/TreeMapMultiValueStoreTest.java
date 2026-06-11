@@ -43,9 +43,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     // add..............................................................................................................
 
     @Test
-    public void testAdd() {
+    public void testAddValue() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
+        store.addValue(ID1, VALUE1);
 
         this.idToValuesAndCheck(
             store,
@@ -57,7 +57,7 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     }
 
     @Test
-    public void testAddWithMultiValueStoreWatcher() {
+    public void testAddValueWithMultiValueStoreWatcher() {
         this.fired = false;
 
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
@@ -78,7 +78,7 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
                 }
             }
         );
-        store.add(ID1, VALUE1);
+        store.addValue(ID1, VALUE1);
 
         this.idToValuesAndCheck(
             store,
@@ -95,13 +95,13 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     }
 
     @Test
-    public void testAddSameTwice() {
+    public void testAddValueSameTwice() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1.toLowerCase(), VALUE1);
+        store.addValue(ID1.toLowerCase(), VALUE1);
 
         store.addStoreWatcher(new FakeMultiValueStoreWatcher<>());
 
-        store.add(ID1.toUpperCase(), VALUE1);
+        store.addValue(ID1.toUpperCase(), VALUE1);
 
         this.idToValuesAndCheck(
             store,
@@ -113,10 +113,10 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     }
 
     @Test
-    public void testAddTwiceDifferentIds() {
+    public void testAddValueTwiceDifferentIds() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
 
         this.idToValuesAndCheck(
             store,
@@ -130,10 +130,10 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     }
 
     @Test
-    public void testAddTwiceDifferentIds2() {
+    public void testAddValueTwiceDifferentIds2() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID1, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID1, VALUE2);
 
         this.idToValuesAndCheck(
             store,
@@ -163,7 +163,7 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testRemoveUnknown2() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
+        store.addValue(ID1, VALUE1);
         store.remove(ID2, VALUE1);
 
         this.idToValuesAndCheck(
@@ -178,7 +178,7 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testRemove() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
+        store.addValue(ID1, VALUE1);
         store.remove(ID1, VALUE1);
 
         this.idToValuesAndCheck(
@@ -192,7 +192,7 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
         this.fired = false;
 
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
+        store.addValue(ID1, VALUE1);
 
         store.addStoreWatcher(
             new FakeMultiValueStoreWatcher<>() {
@@ -228,8 +228,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testRemove2() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID1, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID1, VALUE2);
 
         store.remove(ID1, VALUE1);
 
@@ -245,8 +245,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testRemoveTwiceDifferentIds() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
 
         store.remove(ID1, VALUE1);
         store.remove(ID2, VALUE2);
@@ -273,7 +273,7 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testDelete() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
+        store.addValue(ID1, VALUE1);
         store.delete(ID1);
 
         this.idToValuesAndCheck(
@@ -287,7 +287,7 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
         final Map<String, Set<Integer>> deleted = Maps.sorted();
 
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
+        store.addValue(ID1, VALUE1);
 
         store.addStoreWatcher(
             new FakeMultiValueStoreWatcher<>() {
@@ -325,9 +325,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
         final Map<String, Set<Integer>> deleted = Maps.sorted();
 
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID1, VALUE2);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID1, VALUE2);
+        store.addValue(ID2, VALUE2);
 
         store.addStoreWatcher(
             new FakeMultiValueStoreWatcher<>() {
@@ -371,8 +371,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testCount() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
 
         this.countAndCheck(
             store,
@@ -383,9 +383,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testCountMultiValues() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID1, VALUE2);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID1, VALUE2);
+        store.addValue(ID2, VALUE2);
 
         this.countAndCheck(
             store,
@@ -398,8 +398,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testIds() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
 
         this.idsAndCheck(
             store,
@@ -413,8 +413,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testIdsWithOffset() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
 
         this.idsAndCheck(
             store,
@@ -427,9 +427,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testIdsWithSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.idsAndCheck(
             store,
@@ -443,9 +443,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testIdsWithOffsetAndSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.idsAndCheck(
             store,
@@ -458,10 +458,10 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testIdsWithMultiValueAndOffsetAndSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID1, VALUE2);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID1, VALUE2);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.idsAndCheck(
             store,
@@ -476,8 +476,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testValues() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
 
         this.valuesAndCheck(
             store,
@@ -491,8 +491,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testValues2() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID1, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID1, VALUE2);
 
         this.valuesAndCheck(
             store,
@@ -506,8 +506,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testValuesWithOffset() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
 
         this.valuesAndCheck(
             store,
@@ -520,9 +520,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testValuesWithSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.valuesAndCheck(
             store,
@@ -536,9 +536,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testValuesWithOffsetAndSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.valuesAndCheck(
             store,
@@ -551,10 +551,10 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testValuesWithMultiValueAndOffsetAndSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID1, VALUE2);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID1, VALUE2);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.valuesAndCheck(
             store,
@@ -569,8 +569,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testBetween() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
 
         this.betweenAndCheck(
             store,
@@ -583,9 +583,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testBetween2() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.betweenAndCheck(
             store,
@@ -599,9 +599,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testBetween3() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.betweenAndCheck(
             store,
@@ -616,9 +616,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testFindValuesById() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.findValuesByIdAndCheck(
             store,
@@ -632,11 +632,11 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testFindValuesByIdWithOffset() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID2, VALUE3);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID2, VALUE3);
+        store.addValue(ID3, VALUE3);
 
         this.findValuesByIdAndCheck(
             store,
@@ -651,11 +651,11 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testFindValuesByIdWithSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID2, VALUE3);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID2, VALUE3);
+        store.addValue(ID3, VALUE3);
 
         this.findValuesByIdAndCheck(
             store,
@@ -669,11 +669,11 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testFindValuesByIdWithOffsetAndSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID2, VALUE3);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID2, VALUE3);
+        store.addValue(ID3, VALUE3);
 
         this.findValuesByIdAndCheck(
             store,
@@ -689,9 +689,9 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testFindIdsByValue() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID3, VALUE3);
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID3, VALUE3);
 
         this.findIdsByValueAndCheck(
             store,
@@ -705,11 +705,11 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testFindIdsByValueWithOffset() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE2);
-        store.add(ID2, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID2, VALUE3);
-        store.add(ID3, VALUE2);
+        store.addValue(ID1, VALUE2);
+        store.addValue(ID2, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID2, VALUE3);
+        store.addValue(ID3, VALUE2);
 
         this.findIdsByValueAndCheck(
             store,
@@ -724,11 +724,11 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testFindIdsByValueWithSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE2);
-        store.add(ID2, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID2, VALUE3);
-        store.add(ID3, VALUE2);
+        store.addValue(ID1, VALUE2);
+        store.addValue(ID2, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID2, VALUE3);
+        store.addValue(ID3, VALUE2);
 
         this.findIdsByValueAndCheck(
             store,
@@ -742,11 +742,11 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Test
     public void testFindIdsByValueWithOffsetAndSize() {
         final TreeMapMultiValueStore<String, Integer> store = this.createStore();
-        store.add(ID1, VALUE2);
-        store.add(ID2, VALUE1);
-        store.add(ID2, VALUE2);
-        store.add(ID2, VALUE3);
-        store.add(ID3, VALUE2);
+        store.addValue(ID1, VALUE2);
+        store.addValue(ID2, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID2, VALUE3);
+        store.addValue(ID3, VALUE2);
 
         this.findIdsByValueAndCheck(
             store,
