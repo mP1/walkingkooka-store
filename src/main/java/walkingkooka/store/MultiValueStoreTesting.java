@@ -121,7 +121,7 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
 
     @Test
     default void testFindValuesByIdWithOffsetZeroAndCountZero() {
-        this.findValuesByIdAndCheck(
+        this.findValuesByIdAndCheck2(
             this.createStore(),
             this.id(),
             0,
@@ -131,10 +131,32 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
 
     default <KK, VV> void findValuesByIdAndCheck(final MultiValueStore<KK, VV> store,
                                                  final KK id,
-                                                 final int offset,
-                                                 final int count,
                                                  final VV... values) {
         this.findValuesByIdAndCheck(
+            store,
+            id,
+            Lists.of(values)
+        );
+    }
+
+    default <KK, VV> void findValuesByIdAndCheck(final MultiValueStore<KK, VV> store,
+                                                 final KK id,
+                                                 final List<VV> values) {
+        this.findValuesByIdAndCheck2(
+            store,
+            id,
+            0,
+            Integer.MAX_VALUE,
+            values
+        );
+    }
+
+    default <KK, VV> void findValuesByIdAndCheck2(final MultiValueStore<KK, VV> store,
+                                                  final KK id,
+                                                  final int offset,
+                                                  final int count,
+                                                  final VV... values) {
+        this.findValuesByIdAndCheck2(
             store,
             id,
             offset,
@@ -143,11 +165,11 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
         );
     }
 
-    default <KK, VV> void findValuesByIdAndCheck(final MultiValueStore<KK, VV> store,
-                                                 final KK id,
-                                                 final int offset,
-                                                 final int count,
-                                                 final List<VV> values) {
+    default <KK, VV> void findValuesByIdAndCheck2(final MultiValueStore<KK, VV> store,
+                                                  final KK id,
+                                                  final int offset,
+                                                  final int count,
+                                                  final List<VV> values) {
         this.checkEquals(
             values,
             store.findValuesById(
