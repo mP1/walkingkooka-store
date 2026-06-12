@@ -211,6 +211,28 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
 
     default <KK, VV> void findIdsByValueAndCheck(final MultiValueStore<KK, VV> store,
                                                  final VV value,
+                                                 final KK... ids) {
+        this.findIdsByValueAndCheck(
+            store,
+            value,
+            Lists.of(ids)
+        );
+    }
+
+    default <KK, VV> void findIdsByValueAndCheck(final MultiValueStore<KK, VV> store,
+                                                 final VV value,
+                                                 final List<KK> ids) {
+        this.findIdsByValueAndCheck(
+            store,
+            value,
+            0,
+            Integer.MAX_VALUE,
+            ids
+        );
+    }
+
+    default <KK, VV> void findIdsByValueAndCheck(final MultiValueStore<KK, VV> store,
+                                                 final VV value,
                                                  final int offset,
                                                  final int count,
                                                  final KK... ids) {
