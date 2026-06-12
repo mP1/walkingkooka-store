@@ -19,6 +19,7 @@ package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 
@@ -26,7 +27,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<TreeMapMultiValueStore<String, Integer>, String, Integer> {
+public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<TreeMapMultiValueStore<String, Integer>, String, Integer>,
+    ToStringTesting<TreeMapMultiValueStore<String, Integer>> {
 
     private final static String ID1 = "Id111";
 
@@ -784,6 +786,23 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     public Integer value() {
         return VALUE1;
     }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        final TreeMapMultiValueStore<String, Integer> store = this.createStore();
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID2, VALUE3);
+
+        this.toStringAndCheck(
+            store,
+            "{Id111=[111], Id222=[222, 333]}"
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<TreeMapMultiValueStore<String, Integer>> type() {
