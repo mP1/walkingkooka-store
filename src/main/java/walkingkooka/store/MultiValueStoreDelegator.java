@@ -36,6 +36,12 @@ public interface MultiValueStoreDelegator<K, V> extends StoreDelegator<K, V>,
     }
 
     @Override
+    default int count() {
+        return this.store()
+            .count();
+    }
+
+    @Override
     default Runnable addStoreWatcher(final StoreWatcher<V> watcher) {
         return MultiValueStore.super.addStoreWatcher(watcher);
     }

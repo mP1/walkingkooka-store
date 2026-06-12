@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link Store} that supports more than one value for a particular parent key.
+ * A {@link Store} that supports more than one value for a particular parent key.}
  */
 public interface MultiValueStore<K, V> extends Store<K, V> {
 
@@ -58,6 +58,12 @@ public interface MultiValueStore<K, V> extends Store<K, V> {
         Objects.requireNonNull(value, "value");
         throw new UnsupportedOperationException();
     }
+
+    /**
+     * Count the number of values not ids.
+     */
+    @Override
+    int count();
 
     @Override
     default Runnable addStoreWatcher(final StoreWatcher<V> watcher) {
