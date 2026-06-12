@@ -17,11 +17,9 @@
 
 package walkingkooka.store;
 
-import walkingkooka.HasId;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Comparator;
-import java.util.Optional;
 
 /**
  * Contains many factory methods for a variety of {@link MultiValueStore} implementations.
@@ -31,7 +29,7 @@ public final class MultiValueStores implements PublicStaticHelper {
     /**
      * {@see FakeMultiValueStore}
      */
-    public static <K, V extends HasId<Optional<K>>> Store<K, V> fake() {
+    public static <K, V> Store<K, V> fake() {
         return new FakeMultiValueStore<>();
     }
 
