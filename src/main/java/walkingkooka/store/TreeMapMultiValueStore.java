@@ -254,6 +254,6 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
 
     @Override
     public String toString() {
-        return this.idToValues.values().toString();
+        return this.idToValues.toString();
     }
 }
