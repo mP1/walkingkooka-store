@@ -74,7 +74,10 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
 
     @Override
     public int count() {
-        return this.idToValues.size();
+        return this.values(
+            0,
+            Integer.MAX_VALUE
+        ).size();
     }
 
     @Override

@@ -391,7 +391,7 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
 
         this.countAndCheck(
             store,
-            2
+            3
         );
     }
 
