@@ -78,6 +78,19 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
         );
     }
 
+    // removeByValue....................................................................................................
+
+    @Test
+    default void testRemoveByValueNullValueFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStore()
+                .removeByValue(
+                    null
+                )
+        );
+    }
+
     // findValues.......................................................................................................
 
     @Test
