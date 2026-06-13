@@ -40,6 +40,11 @@ public class FakeMultiValueStore<K, V> extends FakeStore<K, V> implements MultiV
     }
 
     @Override
+    public void removeByValue(final V value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public List<V> findValuesById(final K id,
                                   final int offset,
                                   final int count) {

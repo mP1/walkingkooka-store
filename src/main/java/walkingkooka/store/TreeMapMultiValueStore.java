@@ -184,6 +184,18 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
     }
 
     @Override
+    public void removeByValue(final V value) {
+        Objects.requireNonNull(value, "value");
+
+        for (final K id : this.findIdsByValue(value, 0, Integer.MAX_VALUE)) {
+            this.removeValue(
+                id,
+                value
+            );
+        }
+    }
+
+    @Override
     public List<V> findValuesById(final K id,
                                   final int offset,
                                   final int count) {

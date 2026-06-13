@@ -259,6 +259,46 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
         );
     }
 
+    // removeByValue....................................................................................................
+
+    @Test
+    public void testRemoveByValue() {
+        final TreeMapMultiValueStore<String, Integer> store = this.createStore();
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+
+        store.removeByValue(VALUE1);
+
+        this.checkEquals(
+            Maps.of(
+                ID2,
+                Sets.of(VALUE2)
+            ),
+            store.idToValues
+        );
+    }
+
+    @Test
+    public void testRemoveByValueWhenMultipleValues() {
+        final TreeMapMultiValueStore<String, Integer> store = this.createStore();
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID1, VALUE2);
+        store.addValue(ID2, VALUE1);
+        store.addValue(ID2, VALUE2);
+
+        store.removeByValue(VALUE1);
+
+        this.checkEquals(
+            Maps.of(
+                ID1,
+                Sets.of(VALUE2),
+                ID2,
+                Sets.of(VALUE2)
+            ),
+            store.idToValues
+        );
+    }
+
     // delete...........................................................................................................
 
     @Test

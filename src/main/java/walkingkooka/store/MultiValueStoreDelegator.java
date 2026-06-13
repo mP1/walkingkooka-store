@@ -74,6 +74,12 @@ public interface MultiValueStoreDelegator<K, V> extends StoreDelegator<K, V>,
     }
 
     @Override
+    default void removeByValue(final V value) {
+        this.multiValueStore()
+            .removeByValue(value);
+    }
+
+    @Override
     default List<V> findValuesById(final K id,
                                    final int offset,
                                    final int count) {

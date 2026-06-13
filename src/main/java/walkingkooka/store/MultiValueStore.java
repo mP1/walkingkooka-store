@@ -32,6 +32,11 @@ public interface MultiValueStore<K, V> extends Store<K, V> {
     void removeValue(final K id,
                      final V value);
 
+    /**
+     * Remove ALL instances of value.
+     */
+    void removeByValue(final V value);
+
     List<V> findValuesById(final K id,
                            final int offset,
                            final int count);
