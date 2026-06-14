@@ -21,7 +21,6 @@ import walkingkooka.collect.list.ImmutableList;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.ImmutableSet;
-import walkingkooka.collect.set.Sets;
 
 import java.util.Comparator;
 import java.util.List;
@@ -30,6 +29,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.function.Supplier;
 
 /**
  * A {@link Store} that shares a {@link TreeMap} and automatically allocates an ID if saving a value without an ID.
@@ -40,19 +40,26 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
     /**
      * Factory that creates a new {@link TreeMapMultiValueStore}.
      */
-    static <K, V> TreeMapMultiValueStore<K, V> with(final Comparator<K> idComparator) {
+    static <K, V> TreeMapMultiValueStore<K, V> with(final Comparator<K> idComparator,
+                                                    final Supplier<Set<V>> emptyValueSet) {
         Objects.requireNonNull(idComparator, "idComparator");
+        Objects.requireNonNull(emptyValueSet, "emptyValueSet");
 
-        return new TreeMapMultiValueStore<>(idComparator);
+        return new TreeMapMultiValueStore<>(
+            idComparator,
+            emptyValueSet
+        );
     }
 
     /**
      * Private ctor
      */
-    private TreeMapMultiValueStore(final Comparator<K> idComparator) {
+    private TreeMapMultiValueStore(final Comparator<K> idComparator,
+                                   final Supplier<Set<V>> emptyValueSet) {
         super();
 
         this.idToValues = Maps.sorted(idComparator);
+        this.emptyValueSet = emptyValueSet;
     }
 
     // Store............................................................................................................
@@ -146,7 +153,7 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
         final SortedMap<K, Set<V>> idToValues = this.idToValues;
         Set<V> values = idToValues.get(id);
         if (null == values) {
-            values = Sets.ordered(); // makes ordering of values more predictable., better for tests
+            values = this.emptyValueSet.get();
             idToValues.put(
                 id,
                 values
@@ -159,6 +166,11 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
             );
         }
     }
+
+    /**
+     * Factory that is called each time an empty {@link Set} is required when a new key is added.
+     */
+    private final Supplier<Set<V>> emptyValueSet;
 
     @Override
     public void removeValue(final K id,
@@ -252,7 +264,10 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
 
     @Override
     public int hashCode() {
-        return this.idToValues.hashCode();
+        return Objects.hash(
+            this.idToValues,
+            this.emptyValueSet
+        );
     }
 
     @Override
@@ -263,7 +278,8 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
     }
 
     private boolean equals0(final TreeMapMultiValueStore<?, ?> other) {
-        return this.idToValues.equals(other.idToValues);
+        return this.idToValues.equals(other.idToValues) &
+            this.emptyValueSet.equals(other.emptyValueSet);
     }
 
     @Override
