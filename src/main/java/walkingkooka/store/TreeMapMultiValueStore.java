@@ -158,7 +158,6 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
                 value
             );
         }
-        ;
     }
 
     @Override
