@@ -27,6 +27,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<TreeMapMultiValueStore<String, Integer>, String, Integer>,
     ToStringTesting<TreeMapMultiValueStore<String, Integer>> {
 
@@ -41,6 +43,16 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     private final static Integer VALUE2 = 222;
 
     private final static Integer VALUE3 = 333;
+
+    // with.............................................................................................................
+
+    @Test
+    public void testWithNullIdComparatorFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> TreeMapMultiValueStore.with(null)
+        );
+    }
 
     // add..............................................................................................................
 
