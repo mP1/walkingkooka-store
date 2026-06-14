@@ -18,6 +18,7 @@
 package walkingkooka.store;
 
 import walkingkooka.HasId;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.store.MultiValueStoreDelegatorTest.TestMultiValueStoreDelegator;
 import walkingkooka.store.MultiValueStoreDelegatorTest.TestValue;
 
@@ -73,7 +74,10 @@ public final class MultiValueStoreDelegatorTest implements MultiValueStoreTestin
 
         @Override
         public MultiValueStore<String, TestValue> multiValueStore() {
-            return MultiValueStores.treeMap(String.CASE_INSENSITIVE_ORDER);
+            return MultiValueStores.treeMap(
+                String.CASE_INSENSITIVE_ORDER,
+                Sets::ordered
+            );
         }
 
         @Override

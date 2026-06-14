@@ -20,6 +20,8 @@ package walkingkooka.store;
 import walkingkooka.reflect.PublicStaticHelper;
 
 import java.util.Comparator;
+import java.util.Set;
+import java.util.function.Supplier;
 
 /**
  * Contains many factory methods for a variety of {@link MultiValueStore} implementations.
@@ -36,8 +38,12 @@ public final class MultiValueStores implements PublicStaticHelper {
     /**
      * {@see TreeMapMultiValueStore}
      */
-    public static <K, V> MultiValueStore<K, V> treeMap(final Comparator<K> idComparator) {
-        return TreeMapMultiValueStore.with(idComparator);
+    public static <K, V> MultiValueStore<K, V> treeMap(final Comparator<K> idComparator,
+                                                       final Supplier<Set<V>> emptyValueSet) {
+        return TreeMapMultiValueStore.with(
+            idComparator,
+            emptyValueSet
+        );
     }
 
     /**

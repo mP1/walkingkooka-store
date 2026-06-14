@@ -23,14 +23,20 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<TreeMapMultiValueStore<String, Integer>, String, Integer>,
     ToStringTesting<TreeMapMultiValueStore<String, Integer>> {
+
+    private final static Comparator<String> ID_COMPARATOR = String.CASE_INSENSITIVE_ORDER;
+
+    private final static Supplier<Set<Integer>> EMPTY_VALUES_SET_SUPPLIER = Sets::ordered;
 
     private final static String ID1 = "Id111";
 
@@ -50,7 +56,21 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     public void testWithNullIdComparatorFails() {
         assertThrows(
             NullPointerException.class,
-            () -> TreeMapMultiValueStore.with(null)
+            () -> TreeMapMultiValueStore.with(
+                null,
+                EMPTY_VALUES_SET_SUPPLIER
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullEmptyValuesSetSupplierFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> TreeMapMultiValueStore.with(
+                ID_COMPARATOR,
+                null
+            )
         );
     }
 
@@ -825,7 +845,8 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
     @Override
     public TreeMapMultiValueStore<String, Integer> createStore() {
         return TreeMapMultiValueStore.with(
-            String.CASE_INSENSITIVE_ORDER
+            ID_COMPARATOR,
+            EMPTY_VALUES_SET_SUPPLIER
         );
     }
 
