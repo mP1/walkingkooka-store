@@ -298,6 +298,7 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
 
     // addStoreWatcherOnce..............................................................................................
 
+    @Test
     default void testAddStoreWatcherOnceWithNullFails() {
         assertThrows(
             NullPointerException.class,
