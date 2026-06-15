@@ -41,6 +41,16 @@ public final class StoreDelegatorTest implements StoreTesting<TestStoreDelegator
     }
 
     @Override
+    public void testAddStoreWatcherOnceAndDelete() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testAddStoreWatcherOnceAndSave() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void testTestNaming() {
         throw new UnsupportedOperationException();
     }

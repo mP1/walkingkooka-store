@@ -70,4 +70,9 @@ public class FakeStore<K, V> implements Store<K, V>, Fake {
     public Runnable addStoreWatcher(final StoreWatcher<V> watcher) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Runnable addStoreWatcherOnce(final StoreWatcher<V> watcher) {
+        throw new UnsupportedOperationException();
+    }
 }

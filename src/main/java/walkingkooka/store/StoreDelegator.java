@@ -83,5 +83,11 @@ public interface StoreDelegator<K, V> extends Store<K, V> {
             .addStoreWatcher(watcher);
     }
 
+    @Override
+    default Runnable addStoreWatcherOnce(final StoreWatcher<V> watcher) {
+        return this.store()
+            .addStoreWatcherOnce(watcher);
+    }
+
     Store<K, V> store();
 }

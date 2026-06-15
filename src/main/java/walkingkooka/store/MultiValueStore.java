@@ -77,38 +77,17 @@ public interface MultiValueStore<K, V> extends Store<K, V> {
 
     @Override
     default Runnable addStoreWatcher(final StoreWatcher<V> watcher) {
+        return this.addStoreWatcher(
+            MultiValueStoreStoreWatcher.with(watcher)
+        );
+    }
+
+    @Override
+    default Runnable addStoreWatcherOnce(final StoreWatcher<V> watcher) {
         Objects.requireNonNull(watcher, "watcher");
 
-        return this.addStoreWatcher(
-            new MultiValueStoreWatcher<>() {
-                @Override
-                public void onValueAdded(final K id,
-                                         final V value) {
-                    // IGNORE
-                }
-
-                @Override
-                public void onValueRemoved(final K id,
-                                           final V value) {
-                    // IGNORE
-                }
-
-                @Override
-                public void onValueChange(final Optional<V> oldValue,
-                                          final Optional<V> newValue) {
-                    watcher.onValueChange(
-                        oldValue,
-                        newValue
-                    );
-                }
-
-                // Object................................................................................................
-
-                @Override
-                public String toString() {
-                    return watcher.toString();
-                }
-            }
+        return this.addStoreWatcherOnce(
+            MultiValueStoreStoreWatcher.with(watcher)
         );
     }
 }

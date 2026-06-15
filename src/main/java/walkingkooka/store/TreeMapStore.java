@@ -188,6 +188,11 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
         return this.watchers.add(watcher);
     }
 
+    @Override
+    public Runnable addStoreWatcherOnce(final StoreWatcher<V> watcher) {
+        return this.watchers.addOnce(watcher);
+    }
+
     private final StoreWatchers<V> watchers = StoreWatchers.empty();
 
     // Object...........................................................................................................

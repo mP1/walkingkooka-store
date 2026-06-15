@@ -394,6 +394,67 @@ public interface StoreTesting<S extends Store<K, V>, K, V> extends TreePrintable
         );
     }
 
+    // addStoreWatcherOnce..............................................................................................
+
+    @Test
+    default void testAddStoreWatcherOnceWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStore()
+                .addStoreWatcherOnce(null)
+        );
+    }
+
+    @Test
+    default void testAddStoreWatcherOnceAndSave() {
+        final V value = this.value();
+
+        final S store = this.createStore();
+
+        final List<V> fired = Lists.array();
+        store.addStoreWatcherOnce(
+            (ov, nv) ->
+                fired.add(
+                    nv.orElse(null)
+                )
+        );
+
+        final V saved = store.save(value);
+
+        this.checkEquals(
+            Lists.of(saved),
+            fired,
+            "fired values"
+        );
+    }
+
+    @Test
+    default void testAddStoreWatcherOnceAndDelete() {
+        final V value = this.value();
+
+        final S store = this.createStore();
+
+        final List<V> fired = Lists.array();
+        store.addStoreWatcherOnce(
+            (ov, nv) -> fired.add(
+                nv.orElse(null)
+            )
+        );
+
+        store.save(value);
+
+        final K id = this.id();
+        store.delete(id);
+
+        this.checkEquals(
+            Lists.of(
+                value
+            ),
+            fired,
+            "fired values"
+        );
+    }
+
     // class............................................................................................................
 
     @Override
