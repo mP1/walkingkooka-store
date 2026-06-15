@@ -296,6 +296,19 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
         );
     }
 
+    // addStoreWatcher...................................................................................................
+
+    @Test
+    default void testAddStoreWatcherWithNullMultiValueStoreWatcherFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createStore()
+                .addStoreWatcher(
+                    (MultiValueStoreWatcher<K, V>) null
+                )
+        );
+    }
+    
     // addStoreWatcherOnce..............................................................................................
 
     @Test
