@@ -149,4 +149,10 @@ public interface Store<K, V> {
      * Adds a {@link StoreWatcher}
      */
     Runnable addStoreWatcher(final StoreWatcher<V> watcher);
+
+    /**
+     * Adds a {@link StoreWatcher}
+     */
+    Runnable addStoreWatcherOnce(final StoreWatcher<V> watcher);
+
 }

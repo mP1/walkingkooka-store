@@ -338,4 +338,14 @@ public interface MultiValueStoreTesting<S extends MultiValueStore<K, V>, K, V> e
     default void testAddStoreWatcherAndSaveTwiceFiresOnce() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    default void testAddStoreWatcherOnceAndDelete() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    default void testAddStoreWatcherOnceAndSave() {
+        throw new UnsupportedOperationException();
+    }
 }
