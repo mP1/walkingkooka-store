@@ -62,4 +62,9 @@ public class FakeMultiValueStore<K, V> extends FakeStore<K, V> implements MultiV
     public Runnable addStoreWatcher(final MultiValueStoreWatcher<K, V> watcher) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Runnable addStoreWatcherOnce(final MultiValueStoreWatcher<K, V> watcher) {
+        throw new UnsupportedOperationException();
+    }
 }
