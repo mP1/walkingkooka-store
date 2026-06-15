@@ -258,6 +258,11 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
         return this.watchers.add(watcher);
     }
 
+    @Override
+    public Runnable addStoreWatcherOnce(final MultiValueStoreWatcher<K, V> watcher) {
+        return this.watchers.addOnce(watcher);
+    }
+
     private final MultiValueStoreWatchers<K, V> watchers = MultiValueStoreWatchers.empty();
 
     // Object...........................................................................................................

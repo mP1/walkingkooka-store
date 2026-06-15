@@ -50,6 +50,11 @@ public interface MultiValueStore<K, V> extends Store<K, V> {
      */
     Runnable addStoreWatcher(final MultiValueStoreWatcher<K, V> watcher);
 
+    /**
+     * Adds a {@link MultiValueStoreWatcher}
+     */
+    Runnable addStoreWatcherOnce(final MultiValueStoreWatcher<K, V> watcher);
+
     // Store............................................................................................................
 
     @Override
