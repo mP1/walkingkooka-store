@@ -102,8 +102,8 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
             valueWithId
         );
         this.watchers.onValueChange(
-            Optional.of(valueWithId),
-            Optional.empty()
+            Optional.empty(),
+            Optional.of(valueWithId)
         );
         return valueWithId;
     }
