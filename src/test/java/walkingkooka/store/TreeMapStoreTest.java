@@ -490,6 +490,90 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         );
     }
 
+    @Test
+    public void testAddWatcherAndSaveNew() {
+        final TreeMapStore<TestUserId, TestUser> store = this.createStore();
+
+        final TestUser a = this.user1();
+
+        this.fired = false;
+        store.addStoreWatcher(
+            new StoreWatcher<TestUser>() {
+                @Override
+                public void onValueChange(final Optional<TestUser> oldValue,
+                                          final Optional<TestUser> newValue) {
+                    checkEquals(
+                        Optional.empty(),
+                        oldValue,
+                        "oldValue"
+                    );
+                    checkEquals(
+                        Optional.of(a),
+                        newValue,
+                        "newValue"
+                    );
+
+                    TreeMapStoreTest.this.fired = true;
+                }
+            }
+        );
+
+        store.save(a);
+
+        this.checkEquals(
+            true,
+            this.fired,
+            "fired"
+        );
+    }
+
+    @Test
+    public void testAddWatcherAndSaveReplaces() {
+        final TreeMapStore<TestUserId, TestUser> store = this.createStore();
+
+        final TestUser a = this.user1();
+
+        store.save(a);
+
+        final TestUser b = this.user(
+            a.id.get()
+                .value,
+            "different@example.com"
+        );
+
+        this.fired = false;
+        store.addStoreWatcher(
+            new StoreWatcher<TestUser>() {
+                @Override
+                public void onValueChange(final Optional<TestUser> oldValue,
+                                          final Optional<TestUser> newValue) {
+                    checkEquals(
+                        Optional.of(a),
+                        oldValue,
+                        "oldValue"
+                    );
+                    checkEquals(
+                        Optional.of(b),
+                        newValue,
+                        "newValue"
+                    );
+
+                    TreeMapStoreTest.this.fired = true;
+                }
+            }
+        );
+
+        store.save(b);
+
+        this.checkEquals(
+            true,
+            this.fired,
+            "fired"
+        );
+    }
+
+    private boolean fired;
+
     // toString.........................................................................................................
 
     @Test
