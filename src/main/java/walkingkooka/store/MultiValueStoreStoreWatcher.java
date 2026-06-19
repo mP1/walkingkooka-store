@@ -26,7 +26,7 @@ import java.util.Optional;
 final class MultiValueStoreStoreWatcher<K, V> implements MultiValueStoreWatcher<K, V> {
 
     static <K, V> MultiValueStoreStoreWatcher<K, V> with(final StoreWatcher<V> watcher) {
-        return new MultiValueStoreStoreWatcher(
+        return new MultiValueStoreStoreWatcher<>(
             Objects.requireNonNull(watcher, "watcher")
         );
     }
