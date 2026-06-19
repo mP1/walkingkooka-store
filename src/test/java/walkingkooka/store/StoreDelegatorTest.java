@@ -83,7 +83,7 @@ public final class StoreDelegatorTest implements StoreTesting<TestStoreDelegator
 
         @Override
         public Store<String, TestValue> store() {
-            return Stores.<String, TestValue>treeMap(
+            return Stores.treeMap(
                 String.CASE_INSENSITIVE_ORDER,
                 (String id, TestValue value) -> {
                     throw new UnsupportedOperationException();
