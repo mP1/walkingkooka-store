@@ -234,16 +234,20 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
                     printer
                 );
                 printer.lineStart();
-                {
-                    printer.indent();
+
+                final Object value = entry.getValue();
+                if (null != value) {
                     {
-                        TreePrintable.printTreeOrToString(
-                            entry.getValue(),
-                            printer
-                        );
+                        printer.indent();
+                        {
+                            TreePrintable.printTreeOrToString(
+                                value,
+                                printer
+                            );
+                        }
+                        printer.outdent();
+                        printer.lineStart();
                     }
-                    printer.outdent();
-                    printer.lineStart();
                 }
             }
         }
