@@ -720,6 +720,36 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
         return this.createStore();
     }
 
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testPrintTreeWhenEmpty() {
+        this.treePrintAndCheck(
+            this.createStore(),
+            "TreeMapStore\n"
+        );
+    }
+
+    @Test
+    public void testPrintTree() {
+        final TreeMapStore<TestUserId, TestUser> store = this.createStore();
+        store.save(
+            this.user1()
+        );
+        store.save(
+            this.user2()
+        );
+
+        this.treePrintAndCheck(
+            store,
+            "TreeMapStore\n" +
+                "  1 (walkingkooka.store.TestUserId)\n" +
+                "    1 \"user1@example.com\" (walkingkooka.store.TestUser)\n" +
+                "  2 (walkingkooka.store.TestUserId)\n" +
+                "    2 \"user2@example.com\" (walkingkooka.store.TestUser)\n"
+        );
+    }
+
     // ClassTesting.....................................................................................................
 
     @Override

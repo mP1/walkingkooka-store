@@ -21,6 +21,8 @@ import walkingkooka.HasId;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 
 import java.util.Comparator;
 import java.util.List;
@@ -37,7 +39,8 @@ import java.util.stream.Collectors;
  * A {@link Store} that shares a {@link TreeMap} and automatically allocates an ID if saving a value without an ID.
  * This store is intended to be decorated sharing the map.
  */
-final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V> {
+final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>,
+    TreePrintable {
 
     /**
      * Factory that creates a new {@link TreeMapStore}.
@@ -216,5 +219,34 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
     @Override
     public String toString() {
         return this.idToValue.values().toString();
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.println(this.getClass().getSimpleName());
+        printer.indent();
+        {
+            for (final Entry<K, V> entry : this.idToValue.entrySet()) {
+                TreePrintable.printTreeOrToString(
+                    entry.getKey(),
+                    printer
+                );
+                printer.lineStart();
+                {
+                    printer.indent();
+                    {
+                        TreePrintable.printTreeOrToString(
+                            entry.getValue(),
+                            printer
+                        );
+                    }
+                    printer.outdent();
+                    printer.lineStart();
+                }
+            }
+        }
+        printer.outdent();
     }
 }
