@@ -579,7 +579,10 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
     @Test
     public void testToString() {
         final TreeMapStore<TestUserId, TestUser> store = createNotEmptyStore();
-        this.toStringAndCheck(store, store.idToValue.values().toString());
+        this.toStringAndCheck(
+            store,
+            store.idToValue.toString()
+        );
     }
 
     // helpers..........................................................................................................

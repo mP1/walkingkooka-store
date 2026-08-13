@@ -218,7 +218,7 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
 
     @Override
     public String toString() {
-        return this.idToValue.values().toString();
+        return this.idToValue.toString();
     }
 
     // TreePrintable....................................................................................................
