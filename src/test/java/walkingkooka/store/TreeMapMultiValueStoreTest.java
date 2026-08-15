@@ -18,6 +18,7 @@
 package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.map.Maps;
@@ -32,6 +33,7 @@ import java.util.function.Supplier;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<TreeMapMultiValueStore<String, Integer>, String, Integer>,
+    CanBeEmptyTesting,
     ToStringTesting<TreeMapMultiValueStore<String, Integer>> {
 
     private final static Comparator<String> ID_COMPARATOR = String.CASE_INSENSITIVE_ORDER;
@@ -872,6 +874,29 @@ public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<
         this.toStringAndCheck(
             store,
             "{Id111=[111], Id222=[222, 333]}"
+        );
+    }
+
+    // CanBeEmpty.......................................................................................................
+
+    @Test
+    public void testIsEmptyWhenEmpty() {
+        this.isEmptyAndCheck(
+            this.createStore(),
+            true
+        );
+    }
+
+    @Test
+    public void testIsEmptyWhenNotEmpty() {
+        final TreeMapMultiValueStore<String, Integer> store = this.createStore();
+        store.addValue(ID1, VALUE1);
+        store.addValue(ID2, VALUE2);
+        store.addValue(ID2, VALUE3);
+
+        this.isEmptyAndCheck(
+            store,
+            false
         );
     }
 

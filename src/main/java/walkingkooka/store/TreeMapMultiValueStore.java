@@ -17,6 +17,7 @@
 
 package walkingkooka.store;
 
+import walkingkooka.CanBeEmpty;
 import walkingkooka.collect.list.ImmutableList;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -35,7 +36,8 @@ import java.util.function.Supplier;
  * A {@link Store} that shares a {@link TreeMap} and automatically allocates an ID if saving a value without an ID.
  * This store is intended to be decorated sharing the map.
  */
-final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
+final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V>,
+    CanBeEmpty {
 
     /**
      * Factory that creates a new {@link TreeMapMultiValueStore}.
@@ -290,5 +292,12 @@ final class TreeMapMultiValueStore<K, V> implements MultiValueStore<K, V> {
     @Override
     public String toString() {
         return this.idToValues.toString();
+    }
+
+    // CanBeEmpty.......................................................................................................
+
+    @Override
+    public boolean isEmpty() {
+        return this.idToValues.isEmpty();
     }
 }
