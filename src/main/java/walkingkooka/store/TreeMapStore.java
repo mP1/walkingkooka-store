@@ -17,6 +17,7 @@
 
 package walkingkooka.store;
 
+import walkingkooka.CanBeEmpty;
 import walkingkooka.HasId;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
  * This store is intended to be decorated sharing the map.
  */
 final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>,
+    CanBeEmpty,
     TreePrintable {
 
     /**
@@ -219,6 +221,13 @@ final class TreeMapStore<K, V extends HasId<Optional<K>>> implements Store<K, V>
     @Override
     public String toString() {
         return this.idToValue.toString();
+    }
+
+    // CanBeEmpty.......................................................................................................
+
+    @Override
+    public boolean isEmpty() {
+        return this.idToValue.isEmpty();
     }
 
     // TreePrintable....................................................................................................
