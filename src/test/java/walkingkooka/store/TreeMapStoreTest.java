@@ -18,6 +18,7 @@
 package walkingkooka.store;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.reflect.TypeNameTesting;
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUserId, TestUser>, TestUserId, TestUser>,
+    CanBeEmptyTesting,
     HashCodeEqualsDefinedTesting2<TreeMapStore<TestUserId, TestUser>>,
     TypeNameTesting<TreeMapStore<TestUserId, TestUser>> {
 
@@ -721,6 +723,27 @@ public final class TreeMapStoreTest implements StoreTesting<TreeMapStore<TestUse
     @Override
     public TreeMapStore<TestUserId, TestUser> createObject() {
         return this.createStore();
+    }
+
+    // CanBeEmpty.......................................................................................................
+
+    @Test
+    public void testIsEmptyWhenEmpty() {
+        this.isEmptyAndCheck(
+            this.createStore(),
+            true
+        );
+    }
+
+    @Test
+    public void testIsEmptyWhenNotEmpty() {
+        final TreeMapStore<TestUserId, TestUser> store = this.createStore();
+        store.save(this.user1());
+
+        this.isEmptyAndCheck(
+            store,
+            false
+        );
     }
 
     // TreePrintable....................................................................................................
