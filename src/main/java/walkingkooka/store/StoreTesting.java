@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface StoreTesting<S extends Store<K, V>, K, V> extends TreePrintableTesting,
-    ClassTesting2<S>,
+    PackagePrivateClassTesting<S>,
     ToStringTesting<S> {
 
     // load.............................................................................................................
