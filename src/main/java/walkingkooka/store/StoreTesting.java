@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface StoreTesting<S extends Store<K, V>, K, V> extends TreePrintableTesting,
     PackagePrivateClassTesting<S>,
-    ToStringTesting<S> {
+    ToStringTesting {
 
     // load.............................................................................................................
 

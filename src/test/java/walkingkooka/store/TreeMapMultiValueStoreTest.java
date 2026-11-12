@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TreeMapMultiValueStoreTest implements MultiValueStoreTesting<TreeMapMultiValueStore<String, Integer>, String, Integer>,
     CanBeEmptyTesting,
-    ToStringTesting<TreeMapMultiValueStore<String, Integer>> {
+    ToStringTesting {
 
     private final static Comparator<String> ID_COMPARATOR = String.CASE_INSENSITIVE_ORDER;
 
